@@ -1,4 +1,7 @@
-.login-header {
+$turquoise: #29abe2;
+
+
+.signup-header {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
@@ -27,7 +30,7 @@
     }
 }
 
-.login-container {
+.signup-container {
     height: calc(100vh - 180px);
     display: flex;
     align-items: center;
@@ -46,7 +49,18 @@
     }
 }
 
-.login-text-container {
+.arrow-back-login{
+    left: 15px;
+    top: 15px;
+    cursor: pointer;
+    position: absolute;
+    &:hover path{
+        fill: $turquoise;
+    }
+}
+
+
+.signup-text-container {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -54,7 +68,7 @@
 
 .blue-underline {
     display: flex;
-    width: 50%;
+    width: 70%;
     padding-top: 10px;
     padding-bottom: 10px;
     justify-content: center;
@@ -98,7 +112,7 @@ a {
     height: 20px;
 }
 
-.login-information {
+.signup-information {
     padding: 13px 21px;
     border: 1px solid #d1d1d1b6;
     outline: none;
@@ -108,17 +122,13 @@ a {
     width: 170px;
 }
 
-.login-btn-container {
+.signup-btn-container {
     margin-top: 10px;
     font-weight: 700;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-
-// .toggle-show-password{
-
-// }
 
 
 .logo-entrance-anim {

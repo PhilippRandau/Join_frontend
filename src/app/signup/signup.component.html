@@ -1,0 +1,56 @@
+<div class="signup-header">
+    <a routerLink="/login">
+        <img src="./../../assets/img/logo.svg" alt="logo">
+    </a>
+</div>
+<div class="signup-container">
+    <form (ngSubmit)="signUp()" class="relative">
+        <div routerLink="/login" class="arrow-back-login">
+            <svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M6.06813 9.95821H23.2916C24.1431 9.95821 24.8333 10.6484 24.8333 11.4999C24.8333 12.3513 24.1431 13.0415 23.2916 13.0415H6.06813L13.2477 20.2211C13.8496 20.823 13.8496 21.799 13.2477 22.401C12.6457 23.003 11.6697 23.003 11.0678 22.401L1.58084 12.9141C0.799792 12.133 0.799791 10.8667 1.58084 10.0857L11.0677 0.598748C11.6697 -0.00321963 12.6457 -0.0032202 13.2477 0.598747C13.8496 1.20071 13.8496 2.1767 13.2477 2.77866L6.06813 9.95821Z"
+                    fill="black" />
+            </svg>
+        </div>
+        <div class="signup-text-container">
+            <h3>Sign up</h3>
+            <div class="blue-underline">
+                <div></div>
+            </div>
+        </div>
+        <div class="relative input-icon">
+            <input class="inputEmail" type="text" name="name" placeholder="First- and lastname" [(ngModel)]="name" required
+                class="signup-information">
+            <mat-icon class="material-icons-outlined" fontIcon="person"></mat-icon>
+        </div>
+        <div class="relative input-icon">
+            <input class="inputEmail" type="email" name="email" placeholder="Email" [(ngModel)]="email" required class="signup-information">
+            <mat-icon class="material-icons-outlined" fontIcon="mail"></mat-icon>
+        </div>
+        <div class="relative input-icon">
+            <input [type]="showPwChecked ? 'text' : 'password'" placeholder="Password" [(ngModel)]="password" name="password"
+                required class="signup-information">
+            <input (click)="toggleShowPW()" [(ngModel)]="showPwChecked" type="checkbox" name="showPwChecked"
+                class="hide-checkbox">
+            <mat-icon [ngClass]="{'d-none' : showPwChecked}" class="material-icons-outlined"
+                fontIcon="visibility_off"></mat-icon>
+            <mat-icon [ngClass]="{'d-none' : showPwChecked === false}" class="material-icons-outlined"
+                fontIcon="visibility"></mat-icon>
+        </div>
+        <div class="relative input-icon">
+            <input [type]="showPwChecked ? 'text' : 'password'" [(ngModel)]="password2" placeholder="Password confirmation" name="password2"
+                required class="signup-information">
+            <input (click)="toggleShowPW()" [(ngModel)]="showPwChecked" type="checkbox" name="showPwChecked"
+                class="hide-checkbox">
+            <mat-icon [ngClass]="{'d-none' : showPwChecked}" class="material-icons-outlined"
+                fontIcon="visibility_off"></mat-icon>
+            <mat-icon [ngClass]="{'d-none' : showPwChecked === false}" class="material-icons-outlined"
+                fontIcon="visibility"></mat-icon>
+        </div>
+        <div class="signup-btn-container">
+            <button class="btn-primary">
+                Sign up
+            </button>
+        </div>
+    </form>
+</div>

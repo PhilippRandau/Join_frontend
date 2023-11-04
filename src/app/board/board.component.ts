@@ -21,7 +21,7 @@ export class BoardComponent implements OnInit {
 
   async loadBoard() {
     try {
-      let response: any = await this.getBoardTasks()
+      let response: any = await this.getBoardTasks();
       this.tasks = response;
       console.log(response);
     } catch (e) {
@@ -31,10 +31,6 @@ export class BoardComponent implements OnInit {
 
   getBoardTasks() {
     const url = environment.baseUrl + '/tasks/';
-    // const body = {
-    //   "username": username,
-    //   "password": password
-    // };
     return lastValueFrom(this.http.get(url))
   }
 }

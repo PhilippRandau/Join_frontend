@@ -5,20 +5,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from  '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BoardComponent } from './board/board.component';
+import { MatIconModule } from '@angular/material/icon';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    BoardComponent
+    BoardComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

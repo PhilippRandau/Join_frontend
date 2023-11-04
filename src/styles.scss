@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./assets/fonts/fonts.css";
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+
+html,
+body {
+    margin: 0 !important;
+    font-family: 'inter', 'arial', sans-serif !important;
+    background-color: whitesmoke;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.relative {
+    position: relative;
+}
+
+h3{
+    font-size: 37px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.btn-primary{
+    height: 40px;
+    background: #2a3647;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 2px solid #2a3647;
+    border-radius: 6px;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.btn-secondary {
+    background: #ffffff;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 2px solid #2a3647;
+    border-radius: 6px;
+    color: #2a3647;
+    cursor: pointer;
+    font-weight: 700;
+}
