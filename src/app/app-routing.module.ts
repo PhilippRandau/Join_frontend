@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { BoardComponent } from './board/board.component';
 import { SignupComponent } from './signup/signup.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'request-new-password', component: NewPasswordComponent },
   { path: 'board', component: BoardComponent },
 ];
 

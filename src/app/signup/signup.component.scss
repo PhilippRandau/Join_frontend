@@ -49,12 +49,13 @@ $turquoise: #29abe2;
     }
 }
 
-.arrow-back-login{
+.arrow-back-login {
     left: 15px;
     top: 15px;
     cursor: pointer;
     position: absolute;
-    &:hover path{
+
+    &:hover path {
         fill: $turquoise;
     }
 }
@@ -151,4 +152,21 @@ a {
     height: 330px;
     width: 270px;
     object-fit: contain;
+}
+
+.sign-up-errors {
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    div {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.text-primary {
+    color: $turquoise !important;
 }

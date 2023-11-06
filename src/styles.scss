@@ -1,4 +1,5 @@
 @import "./assets/fonts/fonts.css";
+@import "./assets/styles/validation.scss";
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
 
@@ -34,6 +35,12 @@ h3{
     color: #ffffff;
     cursor: pointer;
     font-weight: 700;
+
+    &:disabled{
+        background: #818181;
+        border-color: #818181;
+        cursor: default;
+    }
 }
 
 .btn-secondary {

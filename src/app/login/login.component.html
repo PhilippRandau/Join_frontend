@@ -1,9 +1,3 @@
-<form (ngSubmit)="login()">
-    <input type="email" name="email" [(ngModel)]="email">
-    <input type="password" name="password" [(ngModel)]="password">
-    <button>Login</button>
-</form>
-
 <!-- Start Animation -->
 <div class="logo-entrance-anim d-none">
     <svg viewBox="0 0 101 122" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,12 +38,14 @@
                 <div></div>
             </div>
         </div>
+        <!-- email -->
         <div class="relative input-icon">
-            <input class="inputEmail" type="email" id="email" placeholder="Email" required class="login-information">
+            <input class="inputEmail" type="email" [(ngModel)]="email" placeholder="Email" name="email" required class="login-information">
             <mat-icon class="material-icons-outlined" fontIcon="mail"></mat-icon>
         </div>
+        <!-- password -->
         <div class="relative input-icon">
-            <input [type]="showPwChecked ? 'text' : 'password'" id="password" placeholder="Password" name="password" required class="login-information">
+            <input [type]="showPwChecked ? 'text' : 'password'" [(ngModel)]="password" id="password" placeholder="Password" name="password" required class="login-information">
             <input (click)="toggleShowPW()" [(ngModel)]="showPwChecked" type="checkbox" name="showPwChecked"
                 class="hide-checkbox">
             <mat-icon [ngClass]="{'d-none' : showPwChecked}" class="material-icons-outlined"
@@ -58,7 +54,7 @@
                 fontIcon="visibility"></mat-icon>
         </div>
         <div>
-            <a href="html/getEmail.html">Forgot my password</a>
+            <a routerLink="/request-new-password">Forgot my password</a>
         </div>
         <div class="remember-me">
             <input (click)="toggleRememberMe()" type="checkbox" name="rememberMe" [(ngModel)]="rememberMe">

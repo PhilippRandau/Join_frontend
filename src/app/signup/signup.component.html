@@ -4,7 +4,7 @@
     </a>
 </div>
 <div class="signup-container">
-    <form (ngSubmit)="signUp()" class="relative">
+    <form (ngSubmit)="signUp()" [formGroup]="signUpForm" class="relative">
         <div routerLink="/login" class="arrow-back-login">
             <svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -18,37 +18,113 @@
                 <div></div>
             </div>
         </div>
-        <div class="relative input-icon">
-            <input class="inputEmail" type="text" name="name" placeholder="First- and lastname" [(ngModel)]="name" required
-                class="signup-information">
-            <mat-icon class="material-icons-outlined" fontIcon="person"></mat-icon>
+        <!-- name -->
+        <div>
+            <div class="relative input-icon">
+                <input class="inputEmail signup-information" type="text" name="name" formControlName="name"
+                    placeholder="First- and lastname" asyncFullNameValidator required>
+                <mat-icon class="material-icons-outlined" fontIcon="person"></mat-icon>
+            </div>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger sign-up-errors">
+                <div *ngIf="name.errors?.['required']">
+                    Name is required.
+                </div>
+                <div *ngIf="name.errors?.['minlength']">
+                    Name must be at least 4 characters long.
+                </div>
+                <div *ngIf="name.hasError('fullName')">
+                    {{ name.getError('fullName') }}
+                </div>
+                <!-- <div *ngIf="signUpResponse.error.password.length">
+                    <div *ngFor="let passwordError of signUpResponse.error.password">
+                        {{passwordError}}
+                    </div>
+                </div> -->
+            </div>
         </div>
-        <div class="relative input-icon">
-            <input class="inputEmail" type="email" name="email" placeholder="Email" [(ngModel)]="email" required class="signup-information">
-            <mat-icon class="material-icons-outlined" fontIcon="mail"></mat-icon>
+        <!-- email -->
+        <div>
+            <div class="relative input-icon">
+                <input class="inputEmail" type="email" name="email" placeholder="Email" formControlName="email" pattern
+                    required class="signup-information">
+                <mat-icon class="material-icons-outlined" fontIcon="mail"></mat-icon>
+            </div>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger sign-up-errors">
+                <div *ngIf="email.errors?.['required']">
+                    Email is required.
+                </div>
+                <div *ngIf="email.errors?.['minlength']">
+                    Email must be at least 4 characters long.
+                </div>
+                <div *ngIf="email.errors?.['pattern']">
+                    Please enter a valid email like: example@provider.com
+                </div>
+            </div>
+            <div class="alert alert-danger sign-up-errors"
+                *ngIf="signUpErrorResponse && signUpErrorResponse.error && signUpErrorResponse.error.email">
+                <div *ngFor="let emailError of signUpErrorResponse.error.email">
+                    {{ emailError }}
+                </div>
+            </div>
         </div>
-        <div class="relative input-icon">
-            <input [type]="showPwChecked ? 'text' : 'password'" placeholder="Password" [(ngModel)]="password" name="password"
-                required class="signup-information">
-            <input (click)="toggleShowPW()" [(ngModel)]="showPwChecked" type="checkbox" name="showPwChecked"
-                class="hide-checkbox">
-            <mat-icon [ngClass]="{'d-none' : showPwChecked}" class="material-icons-outlined"
-                fontIcon="visibility_off"></mat-icon>
-            <mat-icon [ngClass]="{'d-none' : showPwChecked === false}" class="material-icons-outlined"
-                fontIcon="visibility"></mat-icon>
+        <!-- password1 -->
+        <div>
+            <div class="relative input-icon">
+                <input [type]="showPwChecked ? 'text' : 'password'" placeholder="Password" formControlName="password"
+                    name="password" required class="signup-information">
+                <input (click)="toggleShowPW()" [(ngModel)]="showPwChecked" [ngModelOptions]="{standalone: true}"
+                    type="checkbox" name="showPwChecked" class="hide-checkbox">
+                <mat-icon [ngClass]="{'d-none' : showPwChecked}" class="material-icons-outlined"
+                    fontIcon="visibility_off"></mat-icon>
+                <mat-icon [ngClass]="{'d-none' : showPwChecked === false}" class="material-icons-outlined"
+                    fontIcon="visibility"></mat-icon>
+            </div>
+            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                class="alert alert-danger sign-up-errors">
+                <div *ngIf="password.errors?.['required']">
+                    Password is required.
+                </div>
+                <div *ngIf="!password.errors?.['required']">
+                    <span class="block" [ngClass]="{'text-primary': password.value.match('^(?=.*[A-Z])')}">At least
+                        uppercase letter. </span>
+                    <span class="block" [ngClass]="{'text-primary': password.value.match('(?=.*[a-z])')}">At least one
+                        lowercase letter. </span>
+                    <span class="block" [ngClass]="{'text-primary': password.value.match('(.*[0-9].*)')}">At least one
+                        digit. </span>
+                    <span class="block" [ngClass]="{'text-primary': password.value.match('(?=.*[!@#$%^&*])')}">At least
+                        one special character. </span>
+                    <span class="block" [ngClass]="{'text-primary': password.value.match('.{8,}')}">At least 8
+                        characters long. </span>
+                </div>
+            </div>
         </div>
-        <div class="relative input-icon">
-            <input [type]="showPwChecked ? 'text' : 'password'" [(ngModel)]="password2" placeholder="Password confirmation" name="password2"
-                required class="signup-information">
-            <input (click)="toggleShowPW()" [(ngModel)]="showPwChecked" type="checkbox" name="showPwChecked"
-                class="hide-checkbox">
-            <mat-icon [ngClass]="{'d-none' : showPwChecked}" class="material-icons-outlined"
-                fontIcon="visibility_off"></mat-icon>
-            <mat-icon [ngClass]="{'d-none' : showPwChecked === false}" class="material-icons-outlined"
-                fontIcon="visibility"></mat-icon>
+        <!-- password2 -->
+        <div>
+            <div class="relative input-icon">
+                <input [type]="showPwChecked ? 'text' : 'password'" formControlName="password2"
+                    placeholder="Password confirmation" name="password2" required class="signup-information">
+                <input (click)="toggleShowPW()" [(ngModel)]="showPwChecked" [ngModelOptions]="{standalone: true}"
+                    type="checkbox" name="showPwChecked" class="hide-checkbox">
+                <mat-icon [ngClass]="{'d-none' : showPwChecked}" class="material-icons-outlined"
+                    fontIcon="visibility_off"></mat-icon>
+                <mat-icon [ngClass]="{'d-none' : showPwChecked === false}" class="material-icons-outlined"
+                    fontIcon="visibility"></mat-icon>
+            </div>
+            <div *ngIf="password2.invalid && (password2.dirty || password2.touched)"
+                class="alert alert-danger sign-up-errors">
+                <div *ngIf="password2.errors?.['required']">
+                    Password confirmation is required.
+                </div>
+            </div>
+            <div class="alert alert-danger sign-up-errors"
+                *ngIf="signUpErrorResponse && signUpErrorResponse.error && signUpErrorResponse.error.password">
+                <div *ngFor="let passwordError of signUpErrorResponse.error.password">
+                    {{ passwordError }}
+                </div>
+            </div>
         </div>
         <div class="signup-btn-container">
-            <button class="btn-primary">
+            <button [disabled]="!signUpForm.valid" class="btn-primary">
                 Sign up
             </button>
         </div>

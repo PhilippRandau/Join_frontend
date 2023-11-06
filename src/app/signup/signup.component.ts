@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { asyncFullNameValidator } from '../validators/fullName.validator';
 
 @Component({
   selector: 'app-signup',
@@ -8,32 +13,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-  name: string = '';
   first_name: string = '';
   last_name: string = '';
-  email: string = '';
-  password: string = '';
-  password2: string = '';
   showPwChecked: boolean = false;
   showPwChecked2: boolean = false;
   rememberMe: boolean = false;
-  loginForm: any;
-  loginData: any;
+  signUpResponse: any;
+  signUpErrorResponse: HttpErrorResponse;
+  StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
+  EmailRegx: string = "^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 
   constructor(
     private auth: AuthService,
-    private router: Router) {
+    private router: Router,
+    private fb: FormBuilder) {
   }
 
+  signUpForm = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(4)], [asyncFullNameValidator()]],
+    email: ['', [Validators.required, Validators.pattern(this.EmailRegx)]],
+    password: ['', [Validators.required, Validators.pattern(this.StrongPasswordRegx)]],
+    password2: ['', [Validators.required, Validators.pattern(this.StrongPasswordRegx)]],
+  })
+
+  get name() { return this.signUpForm.get('name'); }
+  get email() { return this.signUpForm.get('email'); }
+  get password() { return this.signUpForm.get('password'); }
+  get password2() { return this.signUpForm.get('password2'); }
+
+
+
   ngOnInit(): void {
-    // this.loginForm = new FormGroup({
-    //   name: new FormControl(this.loginData.name, [
-    //     Validators.required,
-    //     Validators.minLength(4),
-    //   ]),
-    //   alterEgo: new FormControl(this.loginData.email),
-    //   power: new FormControl(this.loginData.password, Validators.required)
-    // });
+
   }
 
   toggleShowPW() {
@@ -44,19 +55,19 @@ export class SignupComponent {
     this.spliceNameInFirstLastname();
     const username = this.randomUsername();
     console.log('username ' + username);
-    
+
     try {
-      let response: any = await this.auth.signUpWithNameEmailAndPassword(this.first_name, this.last_name, username, this.email, this.password, this.password2)
-      console.log(response);
+      this.signUpResponse = await this.auth.signUpWithNameEmailAndPassword(this.first_name, this.last_name, username, this.signUpForm.value.email, this.signUpForm.value.password, this.signUpForm.value.password2)
+      console.log(this.signUpResponse);
       this.router.navigateByUrl('/login');
     } catch (e) {
+      this.signUpErrorResponse = e;
       console.log(e);
     }
   }
 
   spliceNameInFirstLastname() {
-    debugger
-    const firstLastname = this.name.split(' ');
+    const firstLastname = this.signUpForm.value.name.split(' ');
     this.first_name = firstLastname[0];
     this.last_name = firstLastname[1];
   }
@@ -72,5 +83,26 @@ export class SignupComponent {
       counter += 1;
     }
     return result;
+  }
+
+  createPasswordStrengthValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+
+      const value = control.value;
+
+      if (!value) {
+        return null;
+      }
+
+      const hasUpperCase = /[A-Z]+/.test(value);
+
+      const hasLowerCase = /[a-z]+/.test(value);
+
+      const hasNumeric = /[0-9]+/.test(value);
+
+      const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
+
+      return !passwordValid ? { passwordStrength: true } : null;
+    }
   }
 }
