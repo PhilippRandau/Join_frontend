@@ -14,6 +14,6 @@ export function asyncFullNameValidator(): AsyncValidatorFn {
       }
     }
 
-    return of(null); // Das Validierungsergebnis ist gültig
+    return of(null);
   };
 }

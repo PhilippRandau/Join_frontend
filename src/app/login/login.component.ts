@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth-service';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment.prod';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -12,44 +12,43 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 export class LoginComponent implements OnInit {
-  email: string = '';
-  password: string = '';
   showPwChecked: boolean = false;
   rememberMe: boolean = false;
-  loginForm: any;
-  loginData: any;
+  guestEmail = 'xxx@xx.xx';
+  guestPassword = '?gu3s1.us3r!';
 
   constructor(
     private auth: AuthService,
-    private router: Router) {
+    private router: Router,
+    private fb: FormBuilder) {
   }
+
+  loginForm = this.fb.group({
+    email: ['', [Validators.required]],
+    password: ['', [Validators.required]],
+  })
+
+  get email() { return this.loginForm.get('email'); }
+  get password() { return this.loginForm.get('password'); }
 
   ngOnInit(): void {
-    // this.loginForm = new FormGroup({
-    //   name: new FormControl(this.loginData.name, [
-    //     Validators.required,
-    //     Validators.minLength(4),
-    //   ]),
-    //   alterEgo: new FormControl(this.loginData.email),
-    //   power: new FormControl(this.loginData.password, Validators.required)
-    // });
+
   }
 
-  async login() {
+  async login(guest) {
     try {
-      let response: any = await this.auth.loginWithEmailAndPassword(this.email, this.password)
+      let response: any;
+      if (guest === 'guest') {
+        response = await this.auth.loginWithEmailAndPassword(this.guestEmail, this.guestPassword)
+      } else {
+        response = await this.auth.loginWithEmailAndPassword(this.loginForm.value.email, this.loginForm.value.password)
+      }
       console.log(response);
       localStorage.setItem('token', response['token'])
       this.router.navigateByUrl('/board');
     } catch (e) {
       console.log(e);
     }
-  }
-
-  loginAsGuest() {
-    this.email = 'xxx@xx.xx';
-    this.password = '?gu3s1.us3r!';
-    this.login();
   }
 
   toggleShowPW() {

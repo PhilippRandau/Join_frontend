@@ -4,12 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BoardComponent } from './board/board.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SignupComponent } from './signup/signup.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
-
+import { AuthInterceptorServiceService } from './services/auth-interceptor-service';
+import { AuthService } from './services/auth-service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,14 @@ import { NewPasswordComponent } from './new-password/new-password.component';
     MatIconModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorServiceService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

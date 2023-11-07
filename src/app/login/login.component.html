@@ -31,7 +31,7 @@
     </div>
 </div>
 <div class="login-container">
-    <form (ngSubmit)="login()">
+    <form (ngSubmit)="login('user')" [formGroup]="loginForm">
         <div class="login-text-container">
             <h3>Log in</h3>
             <div class="blue-underline">
@@ -39,32 +39,51 @@
             </div>
         </div>
         <!-- email -->
-        <div class="relative input-icon">
-            <input class="inputEmail" type="email" [(ngModel)]="email" placeholder="Email" name="email" required class="login-information">
-            <mat-icon class="material-icons-outlined" fontIcon="mail"></mat-icon>
+        <div>
+            <div class="relative input-icon">
+                <input class="inputEmail" type="email" formControlName="email" placeholder="Email" name="email" required
+                    class="login-information">
+                <mat-icon class="material-icons-outlined" fontIcon="mail"></mat-icon>
+            </div>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                class="alert alert-danger login-errors">
+                <div *ngIf="email.errors?.['required']">
+                    Email is required.
+                </div>
+            </div>
+
         </div>
         <!-- password -->
-        <div class="relative input-icon">
-            <input [type]="showPwChecked ? 'text' : 'password'" [(ngModel)]="password" id="password" placeholder="Password" name="password" required class="login-information">
-            <input (click)="toggleShowPW()" [(ngModel)]="showPwChecked" type="checkbox" name="showPwChecked"
-                class="hide-checkbox">
-            <mat-icon [ngClass]="{'d-none' : showPwChecked}" class="material-icons-outlined"
-                fontIcon="visibility_off"></mat-icon>
-            <mat-icon [ngClass]="{'d-none' : showPwChecked === false}" class="material-icons-outlined"
-                fontIcon="visibility"></mat-icon>
+        <div>
+            <div class="relative input-icon">
+                <input [type]="showPwChecked ? 'text' : 'password'" formControlName="password" id="password"
+                    placeholder="Password" name="password" required class="login-information">
+                <input (click)="toggleShowPW()" [(ngModel)]="showPwChecked" [ngModelOptions]="{standalone: true}" type="checkbox" name="showPwChecked"
+                    class="hide-checkbox">
+                <mat-icon [ngClass]="{'d-none' : showPwChecked}" class="material-icons-outlined"
+                    fontIcon="visibility_off"></mat-icon>
+                <mat-icon [ngClass]="{'d-none' : showPwChecked === false}" class="material-icons-outlined"
+                    fontIcon="visibility"></mat-icon>
+            </div>
+            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                class="alert alert-danger login-errors">
+                <div *ngIf="password.errors?.['required']">
+                    Password is required.
+                </div>
+            </div>
         </div>
         <div>
             <a routerLink="/request-new-password">Forgot my password</a>
         </div>
         <div class="remember-me">
-            <input (click)="toggleRememberMe()" type="checkbox" name="rememberMe" [(ngModel)]="rememberMe">
+            <input (click)="toggleRememberMe()" type="checkbox" name="rememberMe" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}">
             <label>Remember me</label>
         </div>
         <div class="login-btn-container">
-            <button class="btn-primary">
+            <button [disabled]="!loginForm.valid" class="btn-primary">
                 Login
             </button>
-            <button type='button' class="btn-secondary" (click)="loginAsGuest()">
+            <button type='button' class="btn-secondary" (click)="login('guest')">
                 Guest Log in
             </button>
         </div>
