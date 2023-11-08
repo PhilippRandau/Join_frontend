@@ -1,0 +1,15 @@
+<header>
+    <a class="logo" routerLink="/summary">
+        <img src="./../../assets/img/logo.svg" alt="logo">
+    </a>
+    <div (click)="toggleUserBubbleMenu()" class="user-bubble">
+        <span>user</span>
+        <div class="user-bubble-menu" [ngClass]="{'d-none': !userBubbleMenu}">
+            <a routerLink="/help">Help</a>
+            <p (click)="editUser()">Edit User</p>
+            <p (click)="logout()">Log out</p>
+        </div>
+    </div>
+
+
+</header>

@@ -11,6 +11,10 @@ import { SignupComponent } from './signup/signup.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { AuthInterceptorServiceService } from './services/auth-interceptor-service';
 import { AuthService } from './services/auth-service';
+import { HeaderComponent } from './header/header.component';
+import { SidebarNavComponent } from './sidebar-nav/sidebar-nav.component';
+import { MobileBottombarNavComponent } from './mobile-bottombar-nav/mobile-bottombar-nav.component';
+import { MobileHeaderComponent } from './mobile-header/mobile-header.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { AuthService } from './services/auth-service';
     LoginComponent,
     BoardComponent,
     SignupComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    HeaderComponent,
+    SidebarNavComponent,
+    MobileBottombarNavComponent,
+    MobileHeaderComponent
   ],
   imports: [
     BrowserModule,

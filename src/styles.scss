@@ -18,13 +18,17 @@ body {
     position: relative;
 }
 
-h3{
+h1 {
+    font-size: 48px;
+}
+
+h3 {
     font-size: 37px;
     margin-block-start: 0;
     margin-block-end: 0;
 }
 
-.btn-primary{
+.btn-primary {
     height: 40px;
     background: #2a3647;
     padding: 10px;
@@ -36,7 +40,7 @@ h3{
     cursor: pointer;
     font-weight: 700;
 
-    &:disabled{
+    &:disabled {
         background: #818181;
         border-color: #818181;
         cursor: default;
