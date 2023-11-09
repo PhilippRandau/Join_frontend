@@ -1,0 +1,26 @@
+<nav>
+    <a class="navbar-sections" [ngClass]="{'highlight-section': summary}" routerLink="/summary">
+        <div>
+            <img src="./../../assets/img/icons/summary_icon.svg" alt="logo">
+            <div>Summary</div>
+        </div>
+    </a>
+    <a class="navbar-sections" [ngClass]="{'highlight-section': board}" routerLink="/board">
+        <div>
+            <img src="./../../assets/img/icons/board_icon.svg" alt="logo">
+            <div>Board</div>
+        </div>
+    </a>
+    <a class="navbar-sections" [ngClass]="{'highlight-section': add_task}" routerLink="/add_task">
+        <div>
+            <img src="./../../assets/img/icons/add_task_icon.svg" alt="logo">
+            <div>Add Task</div>
+        </div>
+    </a>
+    <a class="navbar-sections" [ngClass]="{'highlight-section': contacts}" routerLink="/contacts">
+        <div>
+            <img src="./../../assets/img/icons/contacts_icon.svg" alt="logo">
+            <div>Contacts</div>
+        </div>
+    </a>
+</nav>

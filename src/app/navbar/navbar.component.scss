@@ -1,3 +1,5 @@
+$transition: 150ms ease-in-out;
+
 nav {
     height: 70px;
     background-color: #2A3647;
@@ -16,14 +18,13 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
 
-    a {
-
+    div {
         display: flex;
         align-items: center;
         gap: 5px;
         flex-direction: column;
-        text-decoration: none;
         color: white;
 
         img {
@@ -35,5 +36,29 @@ nav {
 }
 
 .highlight-section {
+    transition: $transition;
     background-color: #091931;
+}
+
+@media(min-width:1000px) {
+    nav {
+        position: static;
+        flex-direction: column;
+        height: unset;
+        bottom: unset;
+        right: unset;
+        left: unset;
+        gap: 10px;
+    }
+
+    .navbar-sections {
+        width: 100%;
+        padding: 5px 0px;
+
+        div {
+            flex-direction: row;
+            width: 150px;
+            gap: 15px;
+        }
+    }
 }

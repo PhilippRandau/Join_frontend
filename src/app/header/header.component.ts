@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  userBubbleMenu: boolean = false;
 
+  toggleUserBubbleMenu() {
+    this.userBubbleMenu = !this.userBubbleMenu;
+  }
+
+  editUser() {
+
+  }
+
+
+  logout() {
+
+  }
 }

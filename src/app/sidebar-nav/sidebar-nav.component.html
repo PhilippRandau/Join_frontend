@@ -1,5 +1,14 @@
 <div class="sidebar">
-    <a class="logo" routerLink="/summary">
-        <img src="./../../assets/img/logo_white.svg" alt="logo">
+    <div class="logo">
+        <a  routerLink="/summary">
+            <img src="./../../assets/img/logo_white.svg" alt="logo">
+        </a>
+        <app-navbar></app-navbar>
+    </div>
+    <a class="legal-notice" routerLink="/legal_notice" [ngClass]="{'highlight-section': legal_notice}">
+        <div>
+            <mat-icon class="material-icons-outlined" fontIcon="info"></mat-icon>
+            <span>Legal Notice</span>
+        </div>
     </a>
 </div>

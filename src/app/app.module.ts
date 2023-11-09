@@ -13,11 +13,12 @@ import { AuthInterceptorServiceService } from './services/auth-interceptor-servi
 import { AuthService } from './services/auth-service';
 import { HeaderComponent } from './header/header.component';
 import { SidebarNavComponent } from './sidebar-nav/sidebar-nav.component';
-import { MobileBottombarNavComponent } from './mobile-bottombar-nav/mobile-bottombar-nav.component';
-import { MobileHeaderComponent } from './mobile-header/mobile-header.component';
-import { AddTaskComponent } from './add_task/add_task.component';
 import { SummaryComponent } from './summary/summary.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NewTaskComponent } from './new-task/new-task.component';
+import { TemplateComponent } from './template/template.component';
+import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +29,12 @@ import { ContactsComponent } from './contacts/contacts.component';
     NewPasswordComponent,
     HeaderComponent,
     SidebarNavComponent,
-    MobileBottombarNavComponent,
-    MobileHeaderComponent,
-    AddTaskComponent,
     SummaryComponent,
-    ContactsComponent
+    ContactsComponent,
+    NavbarComponent,
+    NewTaskComponent,
+    TemplateComponent,
+    LegalNoticeComponent
   ],
   imports: [
     BrowserModule,

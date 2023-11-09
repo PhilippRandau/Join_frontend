@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-mobile-bottombar-nav',
-  templateUrl: './mobile-bottombar-nav.component.html',
-  styleUrls: ['./mobile-bottombar-nav.component.scss']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss']
 })
-export class MobileBottombarNavComponent {
+export class NavbarComponent {
   summary: boolean = false;
   board: boolean = false;
   add_task: boolean = false;
   contacts: boolean = false;
+  
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute) {
@@ -20,7 +21,5 @@ export class MobileBottombarNavComponent {
         this[navPath] = true;
       }
     });
-
-
   }
 }
