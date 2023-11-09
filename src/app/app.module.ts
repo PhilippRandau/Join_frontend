@@ -15,6 +15,9 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarNavComponent } from './sidebar-nav/sidebar-nav.component';
 import { MobileBottombarNavComponent } from './mobile-bottombar-nav/mobile-bottombar-nav.component';
 import { MobileHeaderComponent } from './mobile-header/mobile-header.component';
+import { AddTaskComponent } from './add_task/add_task.component';
+import { SummaryComponent } from './summary/summary.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { MobileHeaderComponent } from './mobile-header/mobile-header.component';
     HeaderComponent,
     SidebarNavComponent,
     MobileBottombarNavComponent,
-    MobileHeaderComponent
+    MobileHeaderComponent,
+    AddTaskComponent,
+    SummaryComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserModule,

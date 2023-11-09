@@ -1,1 +1,26 @@
-<p>mobile-bottombar-nav works!</p>
+<nav>
+    <div class="navbar-sections" [ngClass]="{'highlight-section': summary}">
+        <a routerLink="/summary">
+            <img src="./../../assets/img/icons/summary_icon.svg" alt="logo">
+            <div>Summary</div>
+        </a>
+    </div>
+    <div class="navbar-sections" [ngClass]="{'highlight-section': board}">
+        <a routerLink="/board">
+            <img src="./../../assets/img/icons/board_icon.svg" alt="logo">
+            <div>Board</div>
+        </a>
+    </div>
+    <div class="navbar-sections" [ngClass]="{'highlight-section': add_task}">
+        <a routerLink="/add_task">
+            <img src="./../../assets/img/icons/add_task_icon.svg" alt="logo">
+            <div>Add Task</div>
+        </a>
+    </div>
+    <div class="navbar-sections" [ngClass]="{'highlight-section': contacts}">
+        <a routerLink="/contacts">
+            <img src="./../../assets/img/icons/contacts_icon.svg" alt="logo">
+            <div>Contacts</div>
+        </a>
+    </div>
+</nav>
