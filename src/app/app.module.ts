@@ -19,6 +19,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { TemplateComponent } from './template/template.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
+import { DragDropModule, CdkDropListGroup, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,7 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
     NavbarComponent,
     NewTaskComponent,
     TemplateComponent,
-    LegalNoticeComponent
+    LegalNoticeComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,12 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
     FormsModule,
     HttpClientModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule,
+    CdkDropListGroup, 
+    CdkDropList, 
+    CdkDrag,
+    MatProgressBarModule
   ],
   providers: [
     AuthService,

@@ -9,6 +9,12 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1;
+}
+
+h1{
+    display: none;
+    margin-left: 290px;
 }
 
 .logo {
@@ -80,3 +86,18 @@ header {
         margin-block-end: unset;
     }
 }
+
+
+@media (min-width:1001px) {
+    .logo{
+        display: none;
+    }
+    
+    h1{
+        display: block;
+
+    }
+}
+
+
+

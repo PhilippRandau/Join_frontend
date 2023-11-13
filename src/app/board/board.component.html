@@ -1,5 +1,116 @@
 <app-template></app-template>
-<div *ngFor="let task of tasks;">
-    <span>Title: {{ task.title }}</span>
-    <span>Description: {{ task.description }}</span>
-</div>
+<section>
+    <div class="board-headline">
+        <h5 class="hide-desktop">Kanban Project Management Tool</h5>
+        <div class="board-headline-mobile">
+            <h2>Board</h2>
+            <button class="btn-primary hide-desktop"><mat-icon class="material-icons-outlined"
+                    fontIcon="add"></mat-icon></button>
+        </div>
+        <div class="relative search-task">
+            <input placeholder="Find Task" type="search">
+            <div class="parting-line"></div>
+            <mat-icon class="material-icons-outlined" fontIcon="search"></mat-icon>
+        </div>
+        <button class="btn-primary hide-mobile" (click)="addTask('Todo')">Add Task<mat-icon
+                class="material-icons-outlined" fontIcon="add"></mat-icon></button>
+    </div>
+    <div class="task-sections">
+        <div class="task-section">
+            <div class="task-section-header">
+                <span>To do</span>
+                <button (click)="addTask('Todo')" class="btn-add-task-section">
+                    <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
+                </button>
+            </div>
+            <div class="task-container" *ngFor="let task of tasks;">
+                <span class="task-category"
+                    [ngStyle]="{'background-color': task.category.category_color }">{{task.category.title}}</span>
+                <span class="task-title">{{ task.title }}</span>
+                <span class="task-description">{{ task.description }}</span>
+                <div class="task-subtasks">
+                    <mat-progress-bar mode="determinate"
+                        [value]="valueCompletedSubtasks(task.subtasks)"></mat-progress-bar>
+                    <span>{{ completedSubtasks(task.subtasks)}}/{{ task.subtasks.length }} Subtasks</span>
+                </div>
+                <div class="task-assigned-to-prio">
+                    <div class="task-assigned-to-bubbles">
+                        <div *ngFor="let assignedUser of task.assigned_to; let i = index">
+                            <span [ngStyle]="{left: i * 30 + 'px'}" class="task-assigned-to-bubble" *ngIf="i < 3">{{
+                                assignedUser.first_name[0] +
+                                assignedUser.last_name[0] }}</span>
+                        </div>
+                    </div>
+                    <img [src]='"./../../assets/img/icons/" + task.prio + ".svg"' [alt]="task.prio">
+                </div>
+            </div>
+            <!-- <div class="task-container" *ngFor="let task of tasks;">
+                <span>ID: {{ task.id }}</span>
+                <span [ngStyle]="{'background-color': task.category.category_color }">Category: {{ task.category.title
+                    }}</span>
+                <span>Title: {{ task.title }}</span>
+                <span>Description: {{ task.description }}</span>
+                <span>Subtasks: {{ task.subtask.length }}</span>
+                <span>Assigned to: {{ task.assigned_to[0].first_name[0] + task.assigned_to[0].last_name[0] }}</span>
+                <span>Prio: {{ task.prio }}</span>
+                <span>Section: {{ task.section }}</span>
+            </div> -->
+            <!-- <div cdkDropListGroup>
+                <div class="example-container">
+                    <h2>To do</h2>
+
+                    <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let item of todo; trackBy: trackByFunction" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+
+                <div class="example-container">
+                    <h2>Done</h2>
+
+                    <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let item of done; trackBy: trackByFunction" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+            </div>-->
+
+        </div>
+        <div class="task-section">
+            <div class="task-section-header">
+                <span>In progress</span>
+                <button (click)="addTask('In-progress')" class="btn-add-task-section">
+                    <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
+                </button>
+            </div>
+            <div *ngFor="let task of tasks;">
+
+                <span>Title: {{ task.title }}</span>
+                <span>Description: {{ task.description }}</span>
+            </div>
+        </div>
+        <div class="task-section">
+            <div class="task-section-header">
+                <span>Awaiting Feedback</span>
+                <button (click)="addTask('Awaiting-Feedback')" class="btn-add-task-section">
+                    <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
+                </button>
+            </div>
+            <div *ngFor="let task of tasks;">
+                <span>Title: {{ task.title }}</span>
+                <span>Description: {{ task.description }}</span>
+            </div>
+        </div>
+        <div class="task-section">
+            <div class="task-section-header">
+                <span>Done</span>
+                <button (click)="addTask('Done')" class="btn-add-task-section">
+                    <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
+                </button>
+            </div>
+            <div *ngFor="let task of tasks;">
+                <span>Title: {{ task.title }}</span>
+                <span>Description: {{ task.description }}</span>
+            </div>
+        </div>
+    </div>
+
+</section>

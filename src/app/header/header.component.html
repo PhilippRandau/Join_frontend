@@ -2,6 +2,7 @@
     <a class="logo" routerLink="/summary">
         <img src="./../../assets/img/logo.svg" alt="logo">
     </a>
+    <h1>Kanban Project Management Tool</h1>
     <div (click)="toggleUserBubbleMenu()" class="user-bubble">
         <span>user</span>
         <div class="user-bubble-menu" [ngClass]="{'d-none': !userBubbleMenu}">
@@ -10,6 +11,4 @@
             <p (click)="logout()">Log out</p>
         </div>
     </div>
-
-
 </header>

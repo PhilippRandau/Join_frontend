@@ -57,3 +57,17 @@ app-navbar {
     transition: $transition;
     background-color: #091931;
 }
+
+
+@media (min-width:1001px) {
+    .hide-desktop{
+        display: none;
+    }
+    
+}
+
+@media (max-width:1000px) {
+    .hide-mobile{
+        display: none;
+    }
+}
