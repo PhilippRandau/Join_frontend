@@ -6,6 +6,7 @@ import {
   CdkDragDrop,
   CdkDrag,
   CdkDropList,
+  CdkDragPlaceholder,
   CdkDropListGroup,
   moveItemInArray,
   transferArrayItem,
@@ -18,7 +19,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  tasks: any[] = [];
+  tasks: Array<any> = [];
+  To_Do: Array<any> = [];
+  In_Progress: Array<any> = [];
+  Awaiting_Feedback: Array<any> = [];
+  Done: Array<any> = [];
 
   constructor(private http: HttpClient) {
 
@@ -32,7 +37,9 @@ export class BoardComponent implements OnInit {
     try {
       let response: any = await this.getBoardTasks();
       this.tasks = response;
-      console.log(response);
+      console.log(this.tasks);
+      this.sortTasksInSections();
+
     } catch (e) {
       console.log(e);
     }
@@ -41,6 +48,12 @@ export class BoardComponent implements OnInit {
   getBoardTasks() {
     const url = environment.baseUrl + '/tasks/';
     return lastValueFrom(this.http.get(url))
+  }
+
+  sortTasksInSections() {
+    this.tasks.forEach(task => {
+      this[task.section].push(task);
+    });
   }
 
   valueCompletedSubtasks(subtasks) {
@@ -56,7 +69,6 @@ export class BoardComponent implements OnInit {
         indexCompletedSubtasks++;
       }
     });
-    // debugger
     return indexCompletedSubtasks;
   }
 
@@ -64,24 +76,21 @@ export class BoardComponent implements OnInit {
 
   }
 
-  // todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
 
-  // done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+  }
 
-  // drop(event: CdkDragDrop<string[]>) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  //   } else {
-  //     transferArrayItem(
-  //       event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex,
-  //     );
-  //   }
-  // }
-
-  // trackByFunction(index, item) {
-  //   return item.name;
-  // }
+  trackByFunction(index, item) {
+    return item.name;
+  }
 }

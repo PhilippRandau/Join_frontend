@@ -15,7 +15,7 @@
         <button class="btn-primary hide-mobile" (click)="addTask('Todo')">Add Task<mat-icon
                 class="material-icons-outlined" fontIcon="add"></mat-icon></button>
     </div>
-    <div class="task-sections">
+    <div class="task-sections" cdkDropListGroup>
         <div class="task-section">
             <div class="task-section-header">
                 <span>To do</span>
@@ -23,68 +23,63 @@
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div class="task-container" *ngFor="let task of tasks;">
-                <span class="task-category"
-                    [ngStyle]="{'background-color': task.category.category_color }">{{task.category.title}}</span>
-                <span class="task-title">{{ task.title }}</span>
-                <span class="task-description">{{ task.description }}</span>
-                <div class="task-subtasks">
-                    <mat-progress-bar mode="determinate"
-                        [value]="valueCompletedSubtasks(task.subtasks)"></mat-progress-bar>
-                    <span>{{ completedSubtasks(task.subtasks)}}/{{ task.subtasks.length }} Subtasks</span>
-                </div>
-                <div class="task-assigned-to-prio">
-                    <div class="task-assigned-to-bubbles">
-                        <div *ngFor="let assignedUser of task.assigned_to; let i = index">
-                            <span [ngStyle]="{left: i * 30 + 'px'}" class="task-assigned-to-bubble" *ngIf="i < 3">{{
-                                assignedUser.first_name[0] +
-                                assignedUser.last_name[0] }}</span>
-                        </div>
+            <div class="task-droplist" cdkDropList [cdkDropListData]="To_Do" (cdkDropListDropped)="drop($event)">
+                <div *ngIf="!To_Do.length" class="task-placeholder-empty">No tasks To Do</div>
+                <div class="task-container" *ngFor="let taskToDo of To_Do; trackBy: trackByFunction" cdkDrag>
+                    <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
+                    <span class="task-category"
+                        [ngStyle]="{'background-color': taskToDo.category.category_color }">{{taskToDo.category.title}}</span>
+                    <span class="task-title">{{ taskToDo.title }}</span>
+                    <span class="task-description">{{ taskToDo.description }}</span>
+                    <div class="task-subtasks">
+                        <mat-progress-bar mode="determinate"
+                            [value]="valueCompletedSubtasks(taskToDo.subtasks)"></mat-progress-bar>
+                        <span>{{ completedSubtasks(taskToDo.subtasks)}}/{{ taskToDo.subtasks.length }} Subtasks</span>
                     </div>
-                    <img [src]='"./../../assets/img/icons/" + task.prio + ".svg"' [alt]="task.prio">
+                    <div class="task-assigned-to-prio">
+                        <div class="task-assigned-to-bubbles">
+                            <div *ngFor="let assignedUser of taskToDo.assigned_to; let i = index">
+                                <span [ngStyle]="{left: i * 30 + 'px'}" class="task-assigned-to-bubble" *ngIf="i < 3">{{
+                                    assignedUser.first_name[0] +
+                                    assignedUser.last_name[0] }}</span>
+                            </div>
+                        </div>
+                        <img [src]='"./../../assets/img/icons/" + taskToDo.prio + ".svg"' [alt]="taskToDo.prio">
+                    </div>
                 </div>
             </div>
-            <!-- <div class="task-container" *ngFor="let task of tasks;">
-                <span>ID: {{ task.id }}</span>
-                <span [ngStyle]="{'background-color': task.category.category_color }">Category: {{ task.category.title
-                    }}</span>
-                <span>Title: {{ task.title }}</span>
-                <span>Description: {{ task.description }}</span>
-                <span>Subtasks: {{ task.subtask.length }}</span>
-                <span>Assigned to: {{ task.assigned_to[0].first_name[0] + task.assigned_to[0].last_name[0] }}</span>
-                <span>Prio: {{ task.prio }}</span>
-                <span>Section: {{ task.section }}</span>
-            </div> -->
-            <!-- <div cdkDropListGroup>
-                <div class="example-container">
-                    <h2>To do</h2>
-
-                    <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
-                        <div class="example-box" *ngFor="let item of todo; trackBy: trackByFunction" cdkDrag>{{item}}</div>
-                    </div>
-                </div>
-
-                <div class="example-container">
-                    <h2>Done</h2>
-
-                    <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
-                        <div class="example-box" *ngFor="let item of done; trackBy: trackByFunction" cdkDrag>{{item}}</div>
-                    </div>
-                </div>
-            </div>-->
-
         </div>
         <div class="task-section">
             <div class="task-section-header">
-                <span>In progress</span>
+                <span>In Progress</span>
                 <button (click)="addTask('In-progress')" class="btn-add-task-section">
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div *ngFor="let task of tasks;">
-
-                <span>Title: {{ task.title }}</span>
-                <span>Description: {{ task.description }}</span>
+            <div class="task-droplist" cdkDropList [cdkDropListData]="In_Progress" (cdkDropListDropped)="drop($event)">
+                <div *ngIf="!In_Progress.length" class="task-placeholder-empty">No tasks In Progress</div>
+                <div class="task-container" *ngFor="let taskInProgress of In_Progress; trackBy: trackByFunction" cdkDrag>
+                    <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
+                    <span class="task-category"
+                        [ngStyle]="{'background-color': taskInProgress.category.category_color }">{{taskInProgress.category.title}}</span>
+                    <span class="task-title">{{ taskInProgress.title }}</span>
+                    <span class="task-description">{{ taskInProgress.description }}</span>
+                    <div class="task-subtasks">
+                        <mat-progress-bar mode="determinate"
+                            [value]="valueCompletedSubtasks(taskInProgress.subtasks)"></mat-progress-bar>
+                        <span>{{ completedSubtasks(taskInProgress.subtasks)}}/{{ taskInProgress.subtasks.length }} Subtasks</span>
+                    </div>
+                    <div class="task-assigned-to-prio">
+                        <div class="task-assigned-to-bubbles">
+                            <div *ngFor="let assignedUser of taskInProgress.assigned_to; let i = index">
+                                <span [ngStyle]="{left: i * 30 + 'px'}" class="task-assigned-to-bubble" *ngIf="i < 3">{{
+                                    assignedUser.first_name[0] +
+                                    assignedUser.last_name[0] }}</span>
+                            </div>
+                        </div>
+                        <img [src]='"./../../assets/img/icons/" + taskInProgress.prio + ".svg"' [alt]="taskInProgress.prio">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="task-section">
@@ -94,9 +89,30 @@
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div *ngFor="let task of tasks;">
-                <span>Title: {{ task.title }}</span>
-                <span>Description: {{ task.description }}</span>
+            <div class="task-droplist" cdkDropList [cdkDropListData]="Awaiting_Feedback" (cdkDropListDropped)="drop($event)">
+                <div *ngIf="!Awaiting_Feedback.length" class="task-placeholder-empty">No tasks Awaiting Feedback</div>
+                <div class="task-container" *ngFor="let taskAwaitingFeedback of Awaiting_Feedback; trackBy: trackByFunction" cdkDrag>
+                    <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
+                    <span class="task-category"
+                        [ngStyle]="{'background-color': taskAwaitingFeedback.category.category_color }">{{taskAwaitingFeedback.category.title}}</span>
+                    <span class="task-title">{{ taskAwaitingFeedback.title }}</span>
+                    <span class="task-description">{{ taskAwaitingFeedback.description }}</span>
+                    <div class="task-subtasks">
+                        <mat-progress-bar mode="determinate"
+                            [value]="valueCompletedSubtasks(taskAwaitingFeedback.subtasks)"></mat-progress-bar>
+                        <span>{{ completedSubtasks(taskAwaitingFeedback.subtasks)}}/{{ taskAwaitingFeedback.subtasks.length }} Subtasks</span>
+                    </div>
+                    <div class="task-assigned-to-prio">
+                        <div class="task-assigned-to-bubbles">
+                            <div *ngFor="let assignedUser of taskAwaitingFeedback.assigned_to; let i = index">
+                                <span [ngStyle]="{left: i * 30 + 'px'}" class="task-assigned-to-bubble" *ngIf="i < 3">{{
+                                    assignedUser.first_name[0] +
+                                    assignedUser.last_name[0] }}</span>
+                            </div>
+                        </div>
+                        <img [src]='"./../../assets/img/icons/" + taskAwaitingFeedback.prio + ".svg"' [alt]="taskAwaitingFeedback.prio">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="task-section">
@@ -106,11 +122,31 @@
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div *ngFor="let task of tasks;">
-                <span>Title: {{ task.title }}</span>
-                <span>Description: {{ task.description }}</span>
+            <div class="task-droplist" cdkDropList [cdkDropListData]="Done" (cdkDropListDropped)="drop($event)">
+                <div *ngIf="!Done.length" class="task-placeholder-empty">No tasks Done</div>
+                <div class="task-container" *ngFor="let taskDone of Done; trackBy: trackByFunction" cdkDrag>
+                    <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
+                    <span class="task-category"
+                        [ngStyle]="{'background-color': taskDone.category.category_color }">{{taskDone.category.title}}</span>
+                    <span class="task-title">{{ taskDone.title }}</span>
+                    <span class="task-description">{{ taskDone.description }}</span>
+                    <div class="task-subtasks">
+                        <mat-progress-bar mode="determinate"
+                            [value]="valueCompletedSubtasks(taskDone.subtasks)"></mat-progress-bar>
+                        <span>{{ completedSubtasks(taskDone.subtasks)}}/{{ taskDone.subtasks.length }} Subtasks</span>
+                    </div>
+                    <div class="task-assigned-to-prio">
+                        <div class="task-assigned-to-bubbles">
+                            <div *ngFor="let assignedUser of taskDone.assigned_to; let i = index">
+                                <span [ngStyle]="{left: i * 30 + 'px'}" class="task-assigned-to-bubble" *ngIf="i < 3">{{
+                                    assignedUser.first_name[0] +
+                                    assignedUser.last_name[0] }}</span>
+                            </div>
+                        </div>
+                        <img [src]='"./../../assets/img/icons/" + taskDone.prio + ".svg"' [alt]="taskDone.prio">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </section>
