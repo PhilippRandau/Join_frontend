@@ -27,8 +27,6 @@ section {
     }
 }
 
-
-
 .search-task {
     display: flex;
     align-items: center;
@@ -70,7 +68,6 @@ section {
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 500px;
     gap: 10px;
     margin-bottom: 10px;
     max-width: 100%;
@@ -135,7 +132,7 @@ section {
 
 .task-droplist {
     // border: solid 1px #ccc;
-    min-height: 200px;
+    min-height: 60px;
     border-radius: 24px;
     display: flex;
     flex-direction: column;

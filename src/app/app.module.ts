@@ -21,6 +21,7 @@ import { TemplateComponent } from './template/template.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { DragDropModule, CdkDropListGroup, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     NewTaskComponent,
     TemplateComponent,
     LegalNoticeComponent,
+    DialogAddTaskComponent,
   ],
   imports: [
     BrowserModule,

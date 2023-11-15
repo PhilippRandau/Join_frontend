@@ -46,7 +46,8 @@ export class BoardComponent implements OnInit {
   }
 
   getBoardTasks() {
-    const url = environment.baseUrl + '/tasks/';
+    const endPoint = '/tasks/';
+    const url = environment.baseUrl + endPoint;
     return lastValueFrom(this.http.get(url))
   }
 
@@ -77,9 +78,29 @@ export class BoardComponent implements OnInit {
   }
 
 
-  drop(event: CdkDragDrop<string[]>) {
+  async updateTask(updateData, dropSection) {
+    const body = await this.changeSectionOfDroppedTask(updateData, dropSection);
+
+    const endPoint = `/tasks/`;
+
+    return lastValueFrom(this.http.patch(environment.baseUrl + endPoint, body)).then(() => {
+      console.log('updated: ' + updateData.id);
+    });
+  }
+
+  changeSectionOfDroppedTask(updateData, dropSection){
+    updateData['section'] = dropSection;
+    return updateData;
+  }
+
+
+  drop(event: CdkDragDrop<string[]>, dropSection) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log('same');
+
+      console.log("Todo", this.To_Do);
+      console.log("In Progress", this.In_Progress);
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -87,6 +108,12 @@ export class BoardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
+      console.log('other');
+
+      console.log("Todo", this.To_Do);
+      console.log("In Progress", this.In_Progress);
+
+      this.updateTask(event.container.data[event.currentIndex], dropSection)
     }
   }
 
