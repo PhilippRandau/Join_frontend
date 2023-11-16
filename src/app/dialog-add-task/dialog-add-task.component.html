@@ -1,1 +1,58 @@
-<p>dialog-add-task works!</p>
+<form (ngSubmit)="createTask()" [formGroup]="newTaskForm">
+  <div class="header-container">
+    <h3>Add Task</h3>
+  </div>
+  <!-- title -->
+  <div>
+    <label for="title"></label>
+    <input id="title" type="text" formControlName="title" placeholder="Title" name="title" required>
+    <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger login-errors">
+      <div *ngIf="title.errors?.['required']">
+        Title is required.
+      </div>
+    </div>
+  </div>
+  <!-- Description -->
+  <div>
+    <label for="description"></label>
+    <input id="description" type="text" placeholder="Description"
+      name="description">
+  </div>
+
+
+
+
+
+
+
+
+
+  <div>
+    <div class="relative input-icon">
+      <label for="subtasksLable"></label>
+      <input id="subtasksLable" [(ngModel)]="newSubtask" [ngModelOptions]="{standalone: true}" placeholder="Add new subtask" name="subtasks">
+      <button (click)="addNewSubtask()" type="button">
+        <mat-icon fontIcon="add"></mat-icon>
+      </button>
+    </div>
+    <div *ngFor="let subtask of subtasks">
+      {{subtask.title}} <input name="completed" type="checkbox" [(ngModel)]="subtask.completed" [ngModelOptions]="{standalone: true}">
+    </div>
+  </div>
+
+  <div class="login-btn-container">
+    <button [disabled]="!newTaskForm.valid" class="btn-primary">
+      Create Task <mat-icon fontIcon="done"></mat-icon>
+    </button>
+  </div>
+</form>
+
+<div mat-dialog-content>
+  Create Task in:
+  Snackbar, Select, Datepicker,
+  <ul>
+    <li>
+      <span>{{data.createInSection}}</span>
+    </li>
+  </ul>
+</div>

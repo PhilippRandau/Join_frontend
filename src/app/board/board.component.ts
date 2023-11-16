@@ -12,6 +12,10 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddTaskComponent } from '../dialog-add-task/dialog-add-task.component';
+import { AddTaskDataService } from '../services/add-task-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board',
@@ -25,7 +29,12 @@ export class BoardComponent implements OnInit {
   Awaiting_Feedback: Array<any> = [];
   Done: Array<any> = [];
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    public dialog: MatDialog,
+    public dataAddTask: AddTaskDataService,
+    private router: Router,
+  ) {
 
   }
 
@@ -73,10 +82,23 @@ export class BoardComponent implements OnInit {
     return indexCompletedSubtasks;
   }
 
-  addTask(section) {
+  openAddTask(section) {
 
+    this.dataAddTask.createTaskInSection = section;
+    this.router.navigateByUrl('/add_task');
+
+    
+    // const pathThroughData = {
+    //   'createInSection': section
+    // }
+    // const dialogRef = this.dialog.open(DialogAddTaskComponent, {
+    //   data: pathThroughData
+    // });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log(`Dialog result: ${result}`);
+    // });
   }
-
 
   async updateTask(updateData, dropSection) {
     const body = await this.changeSectionOfDroppedTask(updateData, dropSection);
@@ -88,7 +110,7 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  changeSectionOfDroppedTask(updateData, dropSection){
+  changeSectionOfDroppedTask(updateData, dropSection) {
     updateData['section'] = dropSection;
     return updateData;
   }

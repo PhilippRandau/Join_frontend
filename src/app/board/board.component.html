@@ -4,28 +4,29 @@
         <h5 class="hide-desktop">Kanban Project Management Tool</h5>
         <div class="board-headline-mobile">
             <h2>Board</h2>
-            <button class="btn-primary hide-desktop"><mat-icon class="material-icons-outlined"
-                    fontIcon="add"></mat-icon></button>
+            <button (click)="openAddTask('Todo')" class="btn-primary hide-desktop"><mat-icon
+                    class="material-icons-outlined" fontIcon="add"></mat-icon></button>
         </div>
         <div class="relative search-task">
             <input placeholder="Find Task" type="search">
             <div class="parting-line"></div>
             <mat-icon class="material-icons-outlined" fontIcon="search"></mat-icon>
         </div>
-        <button class="btn-primary hide-mobile" (click)="addTask('Todo')">Add Task<mat-icon
+        <button class="btn-primary hide-mobile" (click)="openAddTask('To_Do')">Add Task<mat-icon
                 class="material-icons-outlined" fontIcon="add"></mat-icon></button>
     </div>
     <div class="task-sections" cdkDropListGroup>
         <div class="task-section">
             <div class="task-section-header">
                 <span>To do</span>
-                <button (click)="addTask('Todo')" class="btn-add-task-section">
+                <button (click)="openAddTask('To_Do')" class="btn-add-task-section">
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div class="task-droplist" cdkDropList [cdkDropListData]="To_Do" (cdkDropListDropped)="drop($event, 'To_Do')">
+            <div class="task-droplist" cdkDropList [cdkDropListData]="To_Do"
+                (cdkDropListDropped)="drop($event, 'To_Do')">
                 <div *ngIf="!To_Do.length" class="task-placeholder-empty">No tasks To Do</div>
-                <div class="task-container" *ngFor="let taskToDo of To_Do; trackBy: trackByFunction" cdkDrag >
+                <div class="task-container" *ngFor="let taskToDo of To_Do; trackBy: trackByFunction" cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
                         [ngStyle]="{'background-color': taskToDo.category.category_color }">{{taskToDo.category.title}}</span>
@@ -52,13 +53,15 @@
         <div class="task-section">
             <div class="task-section-header">
                 <span>In Progress</span>
-                <button (click)="addTask('In-progress')" class="btn-add-task-section">
+                <button (click)="openAddTask('In_Progress')" class="btn-add-task-section">
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div class="task-droplist" cdkDropList [cdkDropListData]="In_Progress" (cdkDropListDropped)="drop($event, 'In_Progress')">
+            <div class="task-droplist" cdkDropList [cdkDropListData]="In_Progress"
+                (cdkDropListDropped)="drop($event, 'In_Progress')">
                 <div *ngIf="!In_Progress.length" class="task-placeholder-empty">No tasks In Progress</div>
-                <div class="task-container" *ngFor="let taskInProgress of In_Progress; trackBy: trackByFunction" cdkDrag>
+                <div class="task-container" *ngFor="let taskInProgress of In_Progress; trackBy: trackByFunction"
+                    cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
                         [ngStyle]="{'background-color': taskInProgress.category.category_color }">{{taskInProgress.category.title}}</span>
@@ -67,7 +70,8 @@
                     <div class="task-subtasks">
                         <mat-progress-bar mode="determinate"
                             [value]="valueCompletedSubtasks(taskInProgress.subtasks)"></mat-progress-bar>
-                        <span>{{ completedSubtasks(taskInProgress.subtasks)}}/{{ taskInProgress.subtasks.length }} Subtasks</span>
+                        <span>{{ completedSubtasks(taskInProgress.subtasks)}}/{{ taskInProgress.subtasks.length }}
+                            Subtasks</span>
                     </div>
                     <div class="task-assigned-to-prio">
                         <div class="task-assigned-to-bubbles">
@@ -77,7 +81,8 @@
                                     assignedUser.last_name[0] }}</span>
                             </div>
                         </div>
-                        <img [src]='"./../../assets/img/icons/" + taskInProgress.prio + ".svg"' [alt]="taskInProgress.prio">
+                        <img [src]='"./../../assets/img/icons/" + taskInProgress.prio + ".svg"'
+                            [alt]="taskInProgress.prio">
                     </div>
                 </div>
             </div>
@@ -85,13 +90,15 @@
         <div class="task-section">
             <div class="task-section-header">
                 <span>Awaiting Feedback</span>
-                <button (click)="addTask('Awaiting-Feedback')" class="btn-add-task-section">
+                <button (click)="openAddTask('Awaiting_Feedback')" class="btn-add-task-section">
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div class="task-droplist" cdkDropList [cdkDropListData]="Awaiting_Feedback" (cdkDropListDropped)="drop($event, 'Awaiting_Feedback')">
+            <div class="task-droplist" cdkDropList [cdkDropListData]="Awaiting_Feedback"
+                (cdkDropListDropped)="drop($event, 'Awaiting_Feedback')">
                 <div *ngIf="!Awaiting_Feedback.length" class="task-placeholder-empty">No tasks Awaiting Feedback</div>
-                <div class="task-container" *ngFor="let taskAwaitingFeedback of Awaiting_Feedback; trackBy: trackByFunction" cdkDrag>
+                <div class="task-container"
+                    *ngFor="let taskAwaitingFeedback of Awaiting_Feedback; trackBy: trackByFunction" cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
                         [ngStyle]="{'background-color': taskAwaitingFeedback.category.category_color }">{{taskAwaitingFeedback.category.title}}</span>
@@ -100,7 +107,8 @@
                     <div class="task-subtasks">
                         <mat-progress-bar mode="determinate"
                             [value]="valueCompletedSubtasks(taskAwaitingFeedback.subtasks)"></mat-progress-bar>
-                        <span>{{ completedSubtasks(taskAwaitingFeedback.subtasks)}}/{{ taskAwaitingFeedback.subtasks.length }} Subtasks</span>
+                        <span>{{ completedSubtasks(taskAwaitingFeedback.subtasks)}}/{{
+                            taskAwaitingFeedback.subtasks.length }} Subtasks</span>
                     </div>
                     <div class="task-assigned-to-prio">
                         <div class="task-assigned-to-bubbles">
@@ -110,7 +118,8 @@
                                     assignedUser.last_name[0] }}</span>
                             </div>
                         </div>
-                        <img [src]='"./../../assets/img/icons/" + taskAwaitingFeedback.prio + ".svg"' [alt]="taskAwaitingFeedback.prio">
+                        <img [src]='"./../../assets/img/icons/" + taskAwaitingFeedback.prio + ".svg"'
+                            [alt]="taskAwaitingFeedback.prio">
                     </div>
                 </div>
             </div>
@@ -118,7 +127,7 @@
         <div class="task-section">
             <div class="task-section-header">
                 <span>Done</span>
-                <button (click)="addTask('Done')" class="btn-add-task-section">
+                <button (click)="openAddTask('Done')" class="btn-add-task-section">
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>

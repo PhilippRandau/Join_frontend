@@ -11,7 +11,7 @@
             <div>Board</div>
         </div>
     </a>
-    <a class="navbar-sections" [ngClass]="{'highlight-section': add_task}" routerLink="/add_task">
+    <a class="navbar-sections" (click)="setTaskSection()" [ngClass]="{'highlight-section': add_task}" routerLink="/add_task">
         <div>
             <img src="./../../assets/img/icons/add_task_icon.svg" alt="logo">
             <div>Add Task</div>

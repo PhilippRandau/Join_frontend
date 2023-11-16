@@ -19,9 +19,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { TemplateComponent } from './template/template.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
-import { DragDropModule, CdkDropListGroup, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -48,10 +50,9 @@ import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.compon
     MatIconModule,
     ReactiveFormsModule,
     DragDropModule,
-    CdkDropListGroup, 
-    CdkDropList, 
-    CdkDrag,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule
+
   ],
   providers: [
     AuthService,
