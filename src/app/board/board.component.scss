@@ -1,4 +1,4 @@
-$transision: 150ms ease-in-out;
+$transition: 150ms ease-in-out;
 
 section {
     margin: 120px 60px;
@@ -93,7 +93,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: $transision;
+    transition: $transition;
     padding-block: unset;
     padding-inline: unset;
 

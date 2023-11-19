@@ -1,5 +1,123 @@
-form{
+$transition: 150ms ease-in-out;
+
+.new-task-form {
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin: 120px 60px;
+    width: calc(100% - 60px - 60px);
+}
+
+label {
+
+    span {
+        color: red;
+    }
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 20px;
+    width: 100%;
+
+    input {
+        border-radius: 10px;
+        border: 1px solid #D1D1D1;
+        background-color: white;
+        padding: 10px 21px;
+        font-size: 16px;
+
+        &:focus {
+            outline: 1px solid #29ABE2;
+            border: none;
+        }
+    }
+
+    mat-form-field {
+
+        .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .mat-mdc-form-field-infix {
+            min-height: 20px;
+        }
+
+        .mat-mdc-text-field-wrapper {
+            background-color: white;
+        }
+
+        --mdc-outlined-text-field-caret-color: #D1D1D1;
+        --mdc-outlined-text-field-focus-outline-color: #29ABE2;
+
+        // &:active, :hover, :focus, :visited, :target{
+        //     --mdc-outlined-text-field-caret-color: #29ABE2;
+        //     --mdc-outlined-text-field-focus-outline-color: #29ABE2;
+        // }
+    }
+}
+
+.datepicker {
+    width: 100%;
+
+    input {
+        width: 100%;
+    }
+
+    div {
+        display: flex;
+        gap: 5px;
+        width: 100%;
+    }
+
+    mat-datepicker {
+        position: absolute;
+    }
+}
+
+.mat-mdc-form-field-flex {
+    padding: unset;
+}
+
+.input-icon {
+    display: flex;
+    align-items: center;
+
+    mat-icon {
+        position: absolute;
+        right: 10px;
+    }
+}
+
+.color-picker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.color-picker-container {
+    height: 21px;
+    width: 21px;
+    display: flex;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+
+    div {
+        border-radius: 100%;
+        border: 3px solid white;
+        width: 10px;
+        height: 10px;
+        cursor: pointer;
+        transition: $transition;
+
+
+        &:hover {
+            width: 15px;
+            height: 15px;
+        }
+    }
 }

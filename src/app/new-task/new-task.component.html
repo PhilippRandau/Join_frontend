@@ -1,59 +1,114 @@
 <app-template></app-template>
-<form (ngSubmit)="createTask()" [formGroup]="newTaskForm">
-    <div class="header-container">
-      <h3>Add Task</h3>
-    </div>
-    <!-- title -->
-    <div>
-      <label for="title"></label>
-      <input id="title" type="text" formControlName="title" placeholder="Title" name="title" required>
-      <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger login-errors">
-        <div *ngIf="title.errors?.['required']">
-          Title is required.
-        </div>
+<form class="new-task-form" (ngSubmit)="createTask()" [formGroup]="newTaskForm">
+  <div class="header-container">
+    <h3>Add Task</h3>
+  </div>
+  <!-- title -->
+  <div class="input-container">
+    <label for="title">Title<span>*</span></label>
+    <input id="title" type="text" formControlName="title" placeholder="Title" name="title" required>
+    <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger login-errors">
+      <div *ngIf="title.errors?.['required']">
+        Title is required.
       </div>
     </div>
-    <!-- Description -->
+  </div>
+  <!-- Description -->
+  <div class="input-container">
+    <label for="description">Description</label>
+    <input id="description" type="text" placeholder="Description" name="description">
+  </div>
+  <!-- Prio -->
+  <div class="input-container">
+    <label>Prio</label>
+    <mat-button-toggle-group [(ngModel)]="prio" [ngModelOptions]="{standalone: true}" name="fontStyle"
+      aria-label="Font Style">
+      <mat-button-toggle value="Urgent">Urgent <img src="./../../assets/img/icons/Urgent.svg"
+          alt=""></mat-button-toggle>
+      <mat-button-toggle value="Medium">Medium <img src="./../../assets/img/icons/Medium.svg"
+          alt=""></mat-button-toggle>
+      <mat-button-toggle value="Low">Low <img src="./../../assets/img/icons/Low.svg" alt=""></mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <!-- Due date -->
+  <div class="input-container datepicker">
+    <label for="datepicker">Due Date<span>*</span></label>
     <div>
-      <label for="description"></label>
-      <input id="description" type="text" placeholder="Description"
-        name="description">
+      <input matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    <div>
-      <div class="relative input-icon">
-        <label for="subtasksLable"></label>
-        <input id="subtasksLable" [(ngModel)]="newSubtask" [ngModelOptions]="{standalone: true}" placeholder="Add new subtask" name="subtasks">
-        <button (click)="addNewSubtask()" type="button">
-          <mat-icon fontIcon="add"></mat-icon>
+  </div>
+  <!-- Category -->
+  <div class="input-container">
+    <label>Category<span>*</span></label>
+    <mat-form-field appearance="outline" *ngIf="!newCategoryOpen">
+      <mat-select placeholder="Select task category" formControlName="category" required>
+        <mat-option (click)="newCategoryOpen = true">Create new category</mat-option>
+        <mat-option *ngFor="let category of categories;" [value]="category.title">{{category.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <form (ngSubmit)="addNewCategory()" [formGroup]="newCategoryForm" *ngIf="newCategoryOpen">
+      <div>
+        <input formControlName="newCategory" placeholder="New category name"
+          type="text">
+        <button>
+          <mat-icon fontIcon="done"></mat-icon>
+        </button>
+        <button type="button" (click)="backToSelectCategory()">
+          <mat-icon fontIcon="arrow_back"></mat-icon>
         </button>
       </div>
-      <div *ngFor="let subtask of subtasks">
-        {{subtask.title}} <input name="completed" type="checkbox" [(ngModel)]="subtask.completed" [ngModelOptions]="{standalone: true}">
+      <div class="color-picker">
+        <div class="color-picker-container" *ngFor="let color of newCategoryColors">
+          <div (click)="categoryColorChoosed(color)" [ngStyle]="{'background-color': color}"></div>
+        </div>
       </div>
-    </div>
-  
-    <div class="login-btn-container">
-      <button [disabled]="!newTaskForm.valid" class="btn-primary">
-        Create Task <mat-icon fontIcon="done"></mat-icon>
+    </form>
+  </div>
+
+  <!-- Assigned to -->
+  <div class="input-container">
+    <label>Assigned to</label>
+    <mat-form-field appearance="outline">
+      <mat-select placeholder="Select contacts to assign" formControlName="assignedTo">
+        <mat-option *ngFor="let contact of contacts;" [value]="contact.id">{{contact.first_name}}
+          {{contact.last_name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+
+  <!-- Subtask -->
+  <div class="input-container">
+    <label>Subtasks</label>
+    <div class="relative input-icon">
+      <input [(ngModel)]="newSubtask" [ngModelOptions]="{standalone: true}" placeholder="Add new subtask"
+        name="subtasks">
+      <button (click)="addNewSubtask()" type="button">
+        <mat-icon fontIcon="add"></mat-icon>
       </button>
     </div>
-  </form>
-  
-  <div mat-dialog-content>
-    Create Task in:
-    Snackbar, Select, Datepicker,
-    <ul>
-      <li>
-        <span>{{dataAddTask.createTaskInSection}}</span>
-      </li>
-    </ul>
+    <div *ngFor="let subtask of subtasks">
+      {{subtask.title}} <input name="completed" type="checkbox" [(ngModel)]="subtask.completed"
+        [ngModelOptions]="{standalone: true}">
+    </div>
   </div>
+
+  <div class="login-btn-container">
+    <!-- [disabled]="!newTaskForm.valid" -->
+    <button type="button" (click)="createTask()" class="btn-primary">
+      Create Task <mat-icon fontIcon="done"></mat-icon>
+    </button>
+  </div>
+</form>
+
+<div mat-dialog-content>
+  Create Task in:
+  Snackbar, Select, Datepicker,
+  <ul>
+    <li>
+      <span>{{dataAddTask.createTaskInSection}}</span>
+    </li>
+  </ul>
+</div>

@@ -23,6 +23,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MAT_DATE_LOCALE, MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+
 
 
 @NgModule({
@@ -51,7 +60,16 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     DragDropModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonToggleModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatNativeDateModule,
+    BrowserAnimationsModule,
+    MatSelectModule
 
   ],
   providers: [
@@ -60,7 +78,8 @@ import { MatDialogModule } from '@angular/material/dialog';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorServiceService,
       multi: true
-    }
+    },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
   bootstrap: [AppComponent]
 })

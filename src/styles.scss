@@ -3,7 +3,7 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
 
-$transision: 150ms ease-in-out;
+$transition: 150ms ease-in-out;
 
 html,
 body {
@@ -56,7 +56,7 @@ h5 {
     cursor: pointer;
     font-size: 22px;
     font-weight: 700;
-    transition: $transision;
+    transition: $transition;
     gap: 5px;
 
     &:hover {
@@ -79,7 +79,7 @@ h5 {
     color: #2a3647;
     cursor: pointer;
     font-weight: 700;
-    transition: $transision;
+    transition: $transition;
     font-size: 22px;
     gap: 5px;
 
