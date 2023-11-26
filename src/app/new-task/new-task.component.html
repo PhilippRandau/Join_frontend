@@ -98,6 +98,7 @@
         Category is required.
       </div>
     </div>
+    <!-- new Category -->
     <form (ngSubmit)="addNewCategory()" [formGroup]="newCategoryForm" *ngIf="newCategoryOpen">
       <div class="relative input-button-icon new-category">
         <input formControlName="newCategory" required [style.background-color]="newCategoryColor.value"

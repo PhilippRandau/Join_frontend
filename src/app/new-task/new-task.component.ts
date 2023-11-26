@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment.prod';
+import { HandleDataService } from '../services/handle-data.service';
 
 @Component({
   selector: 'app-new-task',
@@ -20,8 +21,8 @@ export class NewTaskComponent implements OnInit {
 
   constructor(
     public dataAddTask: AddTaskDataService,
-    private fb: FormBuilder,
-    private http: HttpClient
+    private handleData: HandleDataService,
+    private fb: FormBuilder
   ) { this.loadDataNewTask(); }
 
   ngOnInit(): void {
@@ -69,21 +70,15 @@ export class NewTaskComponent implements OnInit {
   get addSubtask() { return this.addSubtasksForm.get('addSubtask'); }
 
   async loadDataNewTask() {
-    this.creator = await this.getData('/ownUser/');
-    this.categories = await this.getData('/categories/');
-    this.contacts = await this.getData('/contacts/');
+    this.creator = await this.handleData.getData('/user/');
+    this.categories = await this.handleData.getData('/categories/');
+    this.contacts = await this.handleData.getData('/contacts/');
 
     console.log("contacts: ", this.contacts);
     console.log("categories: ", this.categories);
     console.log('user logged in: ', this.creator);
 
     this.assignedTo.setValue([this.creator])
-  }
-
-
-  getData(endPoint) {
-    const url = environment.baseUrl + endPoint;
-    return lastValueFrom(this.http.get(url))
   }
 
   createTask() {
@@ -113,12 +108,14 @@ export class NewTaskComponent implements OnInit {
   }
 
   async addNewCategory() {
-    await this.categories.push(
-      {
-        "title": this.newCategory.value,
-        "category_color": this.newCategoryColor.value
-      }
-    )
+    const newCategoryData = {
+      "title": this.newCategory.value,
+      "category_color": this.newCategoryColor.value
+    }
+    let response = await this.handleData.sendData('/categories/', newCategoryData);
+    console.log("response post new category: ", response);
+
+    await this.categories.push(newCategoryData)
     this.category.setValue(this.newCategory.value);
     this.backToSelectCategory();
   }
