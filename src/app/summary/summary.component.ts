@@ -22,9 +22,10 @@ import {
       })),
       state('false', style({
         opacity: 0,
+        visibility: 'hidden'
       })),
       transition('true => false', [
-        animate('2s')
+        animate('1s')
       ]),
     ]),
   ],
