@@ -31,6 +31,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule, MatRippleModule } from '@angular/
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxAnimatedCounterModule } from '@bugsplat/ngx-animated-counter';
 
 
 
@@ -69,8 +70,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatRippleModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
-    MatSelectModule
-
+    MatSelectModule,
+    NgxAnimatedCounterModule,
   ],
   providers: [
     AuthService,

@@ -1,4 +1,8 @@
 <app-template></app-template>
+<div [@openClose]="showWelcomeScreen ? true : false" class="welcome">
+    <span class="welcome-message">Welcome, </span>
+    <span class="username">User User</span>
+</div>
 <section>
     <div class="headline">
         <h5>Kanban Project Management Tool</h5>
@@ -9,15 +13,15 @@
     <div class="summary">
         <div class="gaps">
             <div routerLink="/board/" class="amount-field amount-field-small">
-                <span class="amount-size">{{ tasks?.length }}</span>
+                <ngx-animated-counter class="amount-size" [params]="boardParams"></ngx-animated-counter>
                 <span>Tasks in Board</span>
             </div>
             <div routerLink="/board/" class="amount-field amount-field-small">
-                <span class="amount-size">{{ In_Progress?.length }}</span>
+                <ngx-animated-counter class="amount-size" [params]="inProgressParams"></ngx-animated-counter>
                 <span>Tasks in Progress</span>
             </div>
             <div routerLink="/board/" class="amount-field amount-field-small">
-                <span class="amount-size">{{ Awaiting_Feedback?.length }}</span>
+                <ngx-animated-counter class="amount-size" [params]="awaitingFeedbackParams"></ngx-animated-counter>
                 <span>Awaiting Feedback</span>
             </div>
         </div>
@@ -35,7 +39,7 @@
                 </svg>
             </div>
             <div class="urgend-amount">
-                <span class="amount-size">{{ urgentTasks?.length }}</span>
+                <ngx-animated-counter class="amount-size" [params]="urgentParams"></ngx-animated-counter>
                 <span>Urgent</span>
             </div>
             <div class="urgend-amount deadline">
@@ -45,11 +49,11 @@
         </div>
         <div class="gaps">
             <div routerLink="/board/" class="amount-field amount-field-mid">
-                <span class="amount-size">{{ To_Do?.length }}</span>
+                <ngx-animated-counter class="amount-size" [params]="toDoParams"></ngx-animated-counter>
                 <span>To-Do</span>
             </div>
             <div routerLink="/board/" class="amount-field amount-field-mid">
-                <span class="amount-size">{{ Done?.length }}</span>
+                <ngx-animated-counter class="amount-size" [params]="doneParams"></ngx-animated-counter>
                 <span>Done</span>
             </div>
         </div>
