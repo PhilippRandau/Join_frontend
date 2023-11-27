@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HandleDataService } from '../services/handle-data.service';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,18 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   userBubbleMenu: boolean = false;
+  currentUser: any;
+
+  constructor(private handleData: HandleDataService,) {
+
+    this.loadCurrentUser();
+  }
+
+  async loadCurrentUser() {
+    this.currentUser = await this.handleData.getData('/user/');
+    console.log(this.currentUser);
+    
+  }
 
   toggleUserBubbleMenu() {
     this.userBubbleMenu = !this.userBubbleMenu;
