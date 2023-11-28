@@ -68,9 +68,13 @@ export class SignupComponent {
 
   spliceNameInFirstLastname() {
     const firstLastname = this.signUpForm.value.name.split(' ');
-    this.first_name = firstLastname[0];
-    this.last_name = firstLastname[1];
+    this.first_name = this.capitalizeFirstLetter(firstLastname[0]);
+    this.last_name = this.capitalizeFirstLetter(firstLastname[1]);
   }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
   randomUsername() {
     let length = 10;

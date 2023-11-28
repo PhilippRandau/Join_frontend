@@ -1,2 +1,30 @@
 <app-template></app-template>
-<p>contacts works!</p>
+<section>
+    <div class="add-contact">
+        <mat-icon class="material-icons-outlined" fontIcon="person_add"></mat-icon>
+    </div>
+    <div class="contact-container">
+        <div class="user-divider">
+            Me
+        </div>
+        <div class="contact">
+            <div class="contact-bubble">{{currentUser?.first_name[0]}}{{currentUser?.last_name[0]}}</div>
+            <div class="contact-info">
+                <span>{{currentUser?.first_name}} {{currentUser?.last_name}} </span>
+                <span>{{currentUser?.email}}</span>
+            </div>
+        </div>
+    </div>
+        <div *ngFor="let contact of contactsSortedByName; let i = index" class="contact-container">
+            <div class="contact-divider" *ngIf="contact?.first_name[0] != contacts[i-1]?.first_name[0]">
+                {{contact?.first_name[0]}}
+            </div>
+            <div class="contact">
+                <div class="contact-bubble">{{contact?.first_name[0]}}{{contact?.last_name[0]}}</div>
+                <div class="contact-info">
+                    <span>{{contact?.first_name}} {{contact?.last_name}} </span>
+                    <span>{{contact?.email}}</span>
+                </div>
+            </div>
+        </div>
+</section>

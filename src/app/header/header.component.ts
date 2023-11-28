@@ -17,8 +17,6 @@ export class HeaderComponent {
 
   async loadCurrentUser() {
     this.currentUser = await this.handleData.getData('/user/');
-    console.log(this.currentUser);
-    
   }
 
   toggleUserBubbleMenu() {

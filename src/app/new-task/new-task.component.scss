@@ -1,11 +1,13 @@
 $transition: 150ms ease-in-out;
 
 .new-task-form {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin: 120px 60px;
-    width: calc(100% - 60px - 60px);
+    position: absolute;
+    top: 80px;
+    bottom: 70px;
+    left: 0px;
+    right: 0px;
+    overflow: auto;
+    padding: 20px 20px;
 }
 
 label {
@@ -31,7 +33,6 @@ label {
 
         &:focus {
             outline: 1px solid #29ABE2;
-            // border: none;
         }
     }
 

@@ -1,7 +1,7 @@
 <app-template></app-template>
 <div [@openClose]="showWelcomeScreen ? true : false" class="welcome">
     <span class="welcome-message">Welcome, </span>
-    <span class="username">User User</span>
+    <span class="username">{{ currentUser.first_name }} {{ currentUser.last_name }}</span>
 </div>
 <section>
     <div class="headline">

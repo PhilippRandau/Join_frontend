@@ -1,14 +1,15 @@
 .welcome {
     position: absolute;
-    top: 0;
+    top: 80px;
     left: 0;
-    bottom: 0;
+    bottom: 70px;
     right: 0;
     flex-direction: column;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 
 }
 
@@ -22,8 +23,13 @@
 }
 
 section {
-    margin: 120px 20px;
-    width: calc(100% - 20px - 20px);
+    position: absolute;
+    top: 80px;
+    bottom: 70px;
+    left: 0px;
+    right: 0px;
+    overflow: auto;
+    padding: 20px 20px;
     font-size: 14px;
 }
 

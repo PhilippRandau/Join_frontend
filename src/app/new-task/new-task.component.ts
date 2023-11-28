@@ -17,17 +17,13 @@ import { HandleDataService } from '../services/handle-data.service';
   styleUrls: ['./new-task.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class NewTaskComponent implements OnInit {
+export class NewTaskComponent{
 
   constructor(
     public dataAddTask: AddTaskDataService,
     private handleData: HandleDataService,
     private fb: FormBuilder
   ) { this.loadDataNewTask(); }
-
-  ngOnInit(): void {
-
-  }
 
   categories: any;
   contacts: any;

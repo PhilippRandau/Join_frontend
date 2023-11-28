@@ -1,8 +1,13 @@
 $transition: 150ms ease-in-out;
 
 section {
-    margin: 120px 20px;
-    width: calc(100% - 20px - 20px);
+    position: absolute;
+    top: 80px;
+    bottom: 70px;
+    left: 0px;
+    right: 0px;
+    overflow: auto;
+    padding: 20px 20px;
 }
 
 .board-headline {

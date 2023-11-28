@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'add_task', component: NewTaskComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'legal_notice', component: LegalNoticeComponent },
+  { path: "**", redirectTo: "login" }
 ];
 
 @NgModule({
