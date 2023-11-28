@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { HandleDataService } from '../services/handle-data.service';
+import { CurrentUserService } from '../services/current-user.service';
+import { ContactsService } from '../services/contacts.service';
 
 @Component({
   selector: 'app-contacts',
@@ -8,16 +9,17 @@ import { HandleDataService } from '../services/handle-data.service';
 })
 export class ContactsComponent {
   constructor(
-    private handleData: HandleDataService,
+    public currentUserData: CurrentUserService,
+    public contactsData: ContactsService
   ) { this.loadDataContacts(); }
 
+
   contacts: any;
-  currentUser: any;
   contactsSortedByName: any;
 
   async loadDataContacts() {
-    this.currentUser = await this.handleData.getData('/user/');
-    this.contacts = await this.handleData.getData('/contacts/');
+    this.contacts = await this.contactsData.loadDataContacts();
     this.contactsSortedByName = this.contacts.sort((a, b) => (a.first_name < b.first_name ? -1 : 1));
+    console.log('contacts ', this.contacts);
   }
 }

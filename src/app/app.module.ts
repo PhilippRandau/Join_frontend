@@ -32,6 +32,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxAnimatedCounterModule } from '@bugsplat/ngx-animated-counter';
+import { ContactAddComponent } from './contact-add/contact-add.component';
 
 
 
@@ -51,6 +52,7 @@ import { NgxAnimatedCounterModule } from '@bugsplat/ngx-animated-counter';
     TemplateComponent,
     LegalNoticeComponent,
     DialogAddTaskComponent,
+    ContactAddComponent,
   ],
   imports: [
     BrowserModule,

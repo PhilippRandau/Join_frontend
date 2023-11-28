@@ -4,7 +4,7 @@
     </a>
     <h1>Kanban Project Management Tool</h1>
     <div (click)="toggleUserBubbleMenu()" class="user-bubble">
-        <span>{{currentUser?.first_name[0]}}{{currentUser?.last_name[0]}}</span>
+        <span>{{currentUserData.currentUser?.first_name[0]}}{{currentUserData.currentUser?.last_name[0]}}</span>
         <div class="user-bubble-menu" [ngClass]="{'d-none': !userBubbleMenu}">
             <a routerLink="/help">Help</a>
             <p (click)="editUser()">Edit User</p>

@@ -10,6 +10,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { CurrentUserService } from '../services/current-user.service';
 
 @Component({
   selector: 'app-summary',
@@ -34,9 +35,9 @@ export class SummaryComponent {
 
   constructor(
     private handleData: HandleDataService,
+    public currentUserData: CurrentUserService
   ) {
     this.loadDataTasks();
-    this.loadCurrentUser();
   }
   showWelcomeScreen: boolean = true;
   sections: Array<string> = ['To_Do', 'In_Progress', 'Awaiting_Feedback', 'Done'];
@@ -47,7 +48,6 @@ export class SummaryComponent {
   Done: Array<any> = [];
   urgentTasks: Array<any>;
   prioUrgentTask: any;
-  currentUser: any;
 
   public boardParams: NgxAnimatedCounterParams = { start: 0, end: 0, interval: 0, increment: 0 };
   public inProgressParams: NgxAnimatedCounterParams = { start: 0, end: 0, interval: 0, increment: 0 };
@@ -99,9 +99,5 @@ export class SummaryComponent {
       this.setParams();
       this.showWelcomeScreen = false;
     }, 1500);
-  }
-
-  async loadCurrentUser() {
-    this.currentUser = await this.handleData.getData('/user/');
   }
 }
