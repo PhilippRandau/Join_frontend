@@ -17,7 +17,7 @@ import { HandleDataService } from '../services/handle-data.service';
   styleUrls: ['./new-task.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class NewTaskComponent{
+export class NewTaskComponent {
 
   constructor(
     public dataAddTask: AddTaskDataService,
@@ -32,6 +32,7 @@ export class NewTaskComponent{
   newCategoryColors: Array<string> = ['#F44336', '#9C27B0', '#3F51B5', '#2196F3', '#00BCD4', '#4CAF50', '#FF9800']
   // newCategoryColor: string = 'white';
   newCategoryOpen: boolean = false;
+  selectedCategory: any;
 
 
 
@@ -40,7 +41,7 @@ export class NewTaskComponent{
     description: [''],
     prio: [''],
     dueDate: ['', [Validators.required]],
-    category: ['', [Validators.required,]],
+    category: [{}, [Validators.required,]],
     assignedTo: [],
   });
 
@@ -78,17 +79,26 @@ export class NewTaskComponent{
   }
 
   createTask() {
+    debugger
     const newTask = {
       "section": this.dataAddTask.createTaskInSection,
       "title": this.title.value,
       "description": this.description.value,
-      "category": this.category.value,
-      "assigned_to": this.assignedTo.value,
+      "category": this.selectedCategory.id,
+      "assigned_to": this.idsOf(this.assignedTo.value),
       "due_date": this.dueDate.value,
       "prio": this.prio.value,
-      "subtasks": this.newSubtasks,
+      "subtasks": this.idsOf(this.newSubtasks),
       "creator": this.creator
     }
+  }
+
+  idsOf(objects) {
+    let objectsToIDs = [];
+    objects.forEach(object => {
+      objectsToIDs.push(object.id);
+    });
+    return objectsToIDs;
   }
 
   setPrio(prioValue) {
@@ -110,9 +120,9 @@ export class NewTaskComponent{
     }
     let response = await this.handleData.sendData('/categories/', newCategoryData);
     console.log("response post new category: ", response);
-
-    await this.categories.push(newCategoryData)
-    this.category.setValue(this.newCategory.value);
+    await this.categories.push(response);
+    this.selectedCategory = response;
+    this.category.setValue(this.selectedCategory);
     this.backToSelectCategory();
   }
 

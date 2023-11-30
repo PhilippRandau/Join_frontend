@@ -87,7 +87,7 @@
   <div class="input-container">
     <label>Category<span>*</span></label>
     <mat-form-field appearance="outline" *ngIf="!newCategoryOpen">
-      <mat-select placeholder="Select task category" formControlName="category" required>
+      <mat-select placeholder="Select task category" formControlName="category" [(value)]="selectedCategory" required>
         <mat-option (click)="newCategoryOpen = true">Create new category</mat-option>
         <mat-option *ngFor="let category of categories;" [value]="category">{{category.title}}</mat-option>
       </mat-select>
