@@ -85,7 +85,9 @@
   </div>
   <!-- Category -->
   <div class="input-container">
+
     <label>Category<span>*</span></label>
+    <span>Valid? {{category.valid}}</span>
     <mat-form-field appearance="outline" *ngIf="!newCategoryOpen">
       <mat-select placeholder="Select task category" formControlName="category" [(value)]="selectedCategory" required>
         <mat-option (click)="newCategoryOpen = true">Create new category</mat-option>
@@ -182,8 +184,7 @@
 
   <div class="login-btn-container">
     <label><span>*</span>This field is required</label>
-    <!-- [disabled]="!newTaskForm.valid" -->
-    <button class="btn-primary">
+    <button class="btn-primary" [disabled]="!newTaskForm.valid">
       Create Task
       <mat-icon fontIcon="done"></mat-icon>
     </button>

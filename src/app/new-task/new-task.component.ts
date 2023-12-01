@@ -8,7 +8,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment.prod';
 import { HandleDataService } from '../services/handle-data.service';
 
 @Component({
@@ -30,7 +29,6 @@ export class NewTaskComponent {
   creator: any;
   newSubtasks: Array<any> = [];
   newCategoryColors: Array<string> = ['#F44336', '#9C27B0', '#3F51B5', '#2196F3', '#00BCD4', '#4CAF50', '#FF9800']
-  // newCategoryColor: string = 'white';
   newCategoryOpen: boolean = false;
   selectedCategory: any;
 
@@ -41,7 +39,7 @@ export class NewTaskComponent {
     description: [''],
     prio: [''],
     dueDate: ['', [Validators.required]],
-    category: [{}, [Validators.required,]],
+    category: ['', [Validators.required]],
     assignedTo: [],
   });
 
@@ -78,19 +76,20 @@ export class NewTaskComponent {
     this.assignedTo.setValue([this.creator])
   }
 
-  createTask() {
-    debugger
+  async createTask() {
     const newTask = {
       "section": this.dataAddTask.createTaskInSection,
       "title": this.title.value,
       "description": this.description.value,
       "category": this.selectedCategory.id,
       "assigned_to": this.idsOf(this.assignedTo.value),
-      "due_date": this.dueDate.value,
+      "due_date": this.convertDateToISO(this.dueDate.value),
       "prio": this.prio.value,
       "subtasks": this.idsOf(this.newSubtasks),
-      "creator": this.creator
+      "creator": this.creator.id
     }
+    let response = await this.handleData.sendData('/tasks/', newTask);
+    console.log('task created: ', response);
   }
 
   idsOf(objects) {
@@ -98,7 +97,12 @@ export class NewTaskComponent {
     objects.forEach(object => {
       objectsToIDs.push(object.id);
     });
+    debugger
     return objectsToIDs;
+  }
+
+  convertDateToISO(date) {
+    return date.toISOString().substring(0, 10);
   }
 
   setPrio(prioValue) {
@@ -139,11 +143,13 @@ export class NewTaskComponent {
   }
 
   async addNewSubtask() {
-    await this.newSubtasks.push(
-      {
-        'title': this.addSubtask.value,
-        'completed': false
-      })
+    const newSubtaskData = {
+      'title': this.addSubtask.value,
+      'completed': false
+    }
+    let response = await this.handleData.sendData('/subtasks/', newSubtaskData);
+    debugger
+    this.newSubtasks.push(response);
     this.clearSubtaskInput();
   }
 
