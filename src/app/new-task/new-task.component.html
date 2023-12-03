@@ -87,7 +87,6 @@
   <div class="input-container">
 
     <label>Category<span>*</span></label>
-    <span>Valid? {{category.valid}}</span>
     <mat-form-field appearance="outline" *ngIf="!newCategoryOpen">
       <mat-select placeholder="Select task category" formControlName="category" [(value)]="selectedCategory" required>
         <mat-option (click)="newCategoryOpen = true">Create new category</mat-option>

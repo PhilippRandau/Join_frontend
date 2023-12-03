@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddTaskComponent } from '../dialog-add-task/dialog-add-task.component';
 import { AddTaskDataService } from '../services/add-task-data.service';
 import { Router } from '@angular/router';
+import { HandleDataService } from '../services/handle-data.service';
 
 @Component({
   selector: 'app-board',
@@ -34,6 +35,7 @@ export class BoardComponent implements OnInit {
     public dialog: MatDialog,
     public dataAddTask: AddTaskDataService,
     private router: Router,
+    private handleData: HandleDataService,
   ) {
 
   }
@@ -44,9 +46,12 @@ export class BoardComponent implements OnInit {
 
   async loadBoard() {
     try {
-      let response: any = await this.getBoardTasks();
-      this.tasks = response;
+      let response: any = await this.handleData.getData('/tasks/');
+      debugger
+      console.log(response);
+      await this.replaceNestedIdsWithData(response);
       console.log(this.tasks);
+
       this.sortTasksInSections();
 
     } catch (e) {
@@ -54,10 +59,25 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  getBoardTasks() {
-    const endPoint = '/tasks/';
-    const url = environment.baseUrl + endPoint;
-    return lastValueFrom(this.http.get(url))
+  async replaceNestedIdsWithData(rawTasks) {
+
+    await rawTasks.forEach(async (rawTask, i ) => {
+      let assignedTos = [];
+      let category = {};
+      let subtasks = [];
+      await rawTask.assigned_to.forEach(async assignedToID => {
+        assignedTos.push(await this.handleData.getData('/user/' + assignedToID + '/'));
+      });
+      category = await this.handleData.getData('/categories/' + rawTask.category + '/');
+      await rawTask.subtasks.forEach(async subtaskID => {
+        subtasks.push(await this.handleData.getData('/subtasks/' + subtaskID + '/'));
+      });
+      rawTasks[i].assigned_to = assignedTos;
+      rawTasks[i].category = category;
+      rawTasks[i].subtasks = subtasks;
+    });
+    console.log('rawtasks: ',rawTasks);
+    this.tasks = rawTasks;
   }
 
   sortTasksInSections() {
@@ -87,7 +107,7 @@ export class BoardComponent implements OnInit {
     this.dataAddTask.createTaskInSection = section;
     this.router.navigateByUrl('/add_task');
 
-    
+
     // const pathThroughData = {
     //   'createInSection': section
     // }

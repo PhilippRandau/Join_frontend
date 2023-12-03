@@ -22,7 +22,8 @@ export class NewTaskComponent {
     public dataAddTask: AddTaskDataService,
     private handleData: HandleDataService,
     private fb: FormBuilder
-  ) { this.loadDataNewTask(); }
+  ) { this.loadDataNewTask(); 
+  }
 
   categories: any;
   contacts: any;
@@ -73,7 +74,8 @@ export class NewTaskComponent {
     console.log("categories: ", this.categories);
     console.log('user logged in: ', this.creator);
 
-    this.assignedTo.setValue([this.creator])
+    this.assignedTo.setValue([this.creator]);
+    
   }
 
   async createTask() {
