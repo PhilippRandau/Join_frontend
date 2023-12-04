@@ -40,9 +40,11 @@
                     <div class="task-assigned-to-prio">
                         <div class="task-assigned-to-bubbles">
                             <div *ngFor="let assignedUser of taskToDo.assigned_to; let i = index">
-                                <span [ngStyle]="{left: i * 30 + 'px'}" class="task-assigned-to-bubble" *ngIf="i < 3">{{
-                                    assignedUser?.first_name[0] +
-                                    assignedUser?.last_name[0] }}</span>
+                                <span [ngStyle]="{left: i * 30 + 'px'}" class="task-assigned-to-bubble" *ngIf="i < 3">
+                                    {{
+                                    assignedUser.first_name[0] +
+                                    assignedUser.last_name[0] }}
+                                </span>
                             </div>
                         </div>
                         <img [src]='"./../../assets/img/icons/" + taskToDo.prio + ".svg"' [alt]="taskToDo.prio">

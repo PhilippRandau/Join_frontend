@@ -47,38 +47,33 @@ export class BoardComponent implements OnInit {
   async loadBoard() {
     try {
       let response: any = await this.handleData.getData('/tasks/');
-      debugger
-      console.log(response);
-      await this.replaceNestedIdsWithData(response);
-      console.log(this.tasks);
-
+      this.tasks = await this.replaceNestedIdsWithData(response);
       this.sortTasksInSections();
-
     } catch (e) {
       console.log(e);
     }
   }
 
   async replaceNestedIdsWithData(rawTasks) {
-
-    await rawTasks.forEach(async (rawTask, i ) => {
-      let assignedTos = [];
-      let category = {};
-      let subtasks = [];
-      await rawTask.assigned_to.forEach(async assignedToID => {
-        assignedTos.push(await this.handleData.getData('/user/' + assignedToID + '/'));
-      });
-      category = await this.handleData.getData('/categories/' + rawTask.category + '/');
-      await rawTask.subtasks.forEach(async subtaskID => {
-        subtasks.push(await this.handleData.getData('/subtasks/' + subtaskID + '/'));
-      });
+    await Promise.all(rawTasks.map(async (rawTask, i) => {
+      let assignedTos = await Promise.all(rawTask.assigned_to.map(async assignedToID => {
+        return this.handleData.getData('/user/' + assignedToID + '/');
+      }));
+      
+      let category = await this.handleData.getData('/categories/' + rawTask.category + '/');
+      
+      let subtasks = await Promise.all(rawTask.subtasks.map(async subtaskID => {
+        return this.handleData.getData('/subtasks/' + subtaskID + '/');
+      }));
+  
       rawTasks[i].assigned_to = assignedTos;
       rawTasks[i].category = category;
       rawTasks[i].subtasks = subtasks;
-    });
-    console.log('rawtasks: ',rawTasks);
-    this.tasks = rawTasks;
+    }));
+  
+    return rawTasks;
   }
+  
 
   sortTasksInSections() {
     this.tasks.forEach(task => {
@@ -120,19 +115,20 @@ export class BoardComponent implements OnInit {
     // });
   }
 
-  async updateTask(updateData, dropSection) {
-    const body = await this.changeSectionOfDroppedTask(updateData, dropSection);
-
+  async updateTask(updatedData, dropSection) {
+    const body = this.changeSectionOfDroppedTask(updatedData, dropSection);
     const endPoint = `/tasks/`;
 
     return lastValueFrom(this.http.patch(environment.baseUrl + endPoint, body)).then(() => {
-      console.log('updated: ' + updateData.id);
+      console.log('updated: ' + updatedData.id);
     });
   }
 
   changeSectionOfDroppedTask(updateData, dropSection) {
-    updateData['section'] = dropSection;
-    return updateData;
+    return {
+      'id': updateData.id,
+      'section': dropSection,
+    }
   }
 
 

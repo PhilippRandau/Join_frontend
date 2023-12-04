@@ -22,7 +22,8 @@ export class NewTaskComponent {
     public dataAddTask: AddTaskDataService,
     private handleData: HandleDataService,
     private fb: FormBuilder
-  ) { this.loadDataNewTask(); 
+  ) {
+    this.loadDataNewTask();
   }
 
   categories: any;
@@ -75,7 +76,7 @@ export class NewTaskComponent {
     console.log('user logged in: ', this.creator);
 
     this.assignedTo.setValue([this.creator]);
-    
+
   }
 
   async createTask() {
@@ -99,7 +100,6 @@ export class NewTaskComponent {
     objects.forEach(object => {
       objectsToIDs.push(object.id);
     });
-    debugger
     return objectsToIDs;
   }
 
@@ -150,7 +150,6 @@ export class NewTaskComponent {
       'completed': false
     }
     let response = await this.handleData.sendData('/subtasks/', newSubtaskData);
-    debugger
     this.newSubtasks.push(response);
     this.clearSubtaskInput();
   }
