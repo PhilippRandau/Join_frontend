@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HandleDataService } from '../services/handle-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-task',
@@ -21,7 +22,8 @@ export class NewTaskComponent {
   constructor(
     public dataAddTask: AddTaskDataService,
     private handleData: HandleDataService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
   ) {
     this.loadDataNewTask();
   }
@@ -93,6 +95,7 @@ export class NewTaskComponent {
     }
     let response = await this.handleData.sendData('/tasks/', newTask);
     console.log('task created: ', response);
+    this.router.navigateByUrl('/board');
   }
 
   idsOf(objects) {

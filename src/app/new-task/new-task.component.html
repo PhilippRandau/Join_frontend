@@ -150,8 +150,10 @@
       </mat-select>
     </mat-form-field>
     <div class="new-task-assigned-to-bubbles">
-      <div class="new-task-assigned-to-bubble" *ngFor="let assignedTo of assignedTo.value; let i = index">
-        {{ assignedTo.first_name[0] + assignedTo.last_name[0] }}
+      <div *ngFor="let assignedTo of assignedTo.value; let i = index">
+        <span class="new-task-assigned-to-bubble" [ngStyle]="{'background-color': assignedTo.userdetail.bubble_color }">
+          {{ assignedTo.first_name[0] + assignedTo.last_name[0] }}
+        </span>
       </div>
     </div>
   </div>

@@ -22,6 +22,7 @@ export class SignupComponent {
   signUpErrorResponse: HttpErrorResponse;
   StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
   EmailRegx: string = "^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
+  bubbleBackgroundColors: Array<string> = ['#F44336', '#9C27B0', '#3F51B5', '#2196F3', '#00BCD4', '#4CAF50', '#FF9800']
 
   constructor(
     private auth: AuthService,
