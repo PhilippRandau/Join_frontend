@@ -21,4 +21,9 @@ export class HandleDataService {
     const url = environment.baseUrl + endPoint;
     return lastValueFrom(this.http.post(url, body))
   }
+
+  updateData(endPoint, body) {
+    const url = environment.baseUrl + endPoint;
+    return lastValueFrom(this.http.patch(url, body));
+  }
 }

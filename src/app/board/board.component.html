@@ -26,13 +26,13 @@
             <div class="task-droplist" cdkDropList [cdkDropListData]="To_Do"
                 (cdkDropListDropped)="drop($event, 'To_Do')">
                 <div *ngIf="!To_Do.length" class="task-placeholder-empty">No tasks To Do</div>
-                <div class="task-container" *ngFor="let taskToDo of To_Do; trackBy: trackByFunction" cdkDrag>
+                <div (click)="openDetailsTask(taskToDo)" class="task-container" *ngFor="let taskToDo of To_Do; trackBy: trackByFunction" cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
                         [ngStyle]="{'background-color': taskToDo.category.category_color }">{{taskToDo.category.title}}</span>
                     <span class="task-title">{{ taskToDo.title }}</span>
                     <span class="task-description">{{ taskToDo.description }}</span>
-                    <div class="task-subtasks">
+                    <div *ngIf="taskToDo.subtasks.length" class="task-subtasks">
                         <mat-progress-bar mode="determinate"
                             [value]="valueCompletedSubtasks(taskToDo.subtasks)"></mat-progress-bar>
                         <span>{{ completedSubtasks(taskToDo.subtasks)}}/{{ taskToDo.subtasks.length }} Subtasks</span>
@@ -64,14 +64,14 @@
             <div class="task-droplist" cdkDropList [cdkDropListData]="In_Progress"
                 (cdkDropListDropped)="drop($event, 'In_Progress')">
                 <div *ngIf="!In_Progress.length" class="task-placeholder-empty">No tasks In Progress</div>
-                <div class="task-container" *ngFor="let taskInProgress of In_Progress; trackBy: trackByFunction"
+                <div (click)="openDetailsTask(taskInProgress)" class="task-container" *ngFor="let taskInProgress of In_Progress; trackBy: trackByFunction"
                     cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
                         [ngStyle]="{'background-color': taskInProgress.category.category_color }">{{taskInProgress.category.title}}</span>
                     <span class="task-title">{{ taskInProgress.title }}</span>
                     <span class="task-description">{{ taskInProgress.description }}</span>
-                    <div class="task-subtasks">
+                    <div *ngIf="taskInProgress.subtasks.length" class="task-subtasks">
                         <mat-progress-bar mode="determinate"
                             [value]="valueCompletedSubtasks(taskInProgress.subtasks)"></mat-progress-bar>
                         <span>{{ completedSubtasks(taskInProgress.subtasks)}}/{{ taskInProgress.subtasks.length }}
@@ -104,14 +104,14 @@
             <div class="task-droplist" cdkDropList [cdkDropListData]="Awaiting_Feedback"
                 (cdkDropListDropped)="drop($event, 'Awaiting_Feedback')">
                 <div *ngIf="!Awaiting_Feedback.length" class="task-placeholder-empty">No tasks Awaiting Feedback</div>
-                <div class="task-container"
+                <div (click)="openDetailsTask(taskAwaitingFeedback)"  class="task-container"
                     *ngFor="let taskAwaitingFeedback of Awaiting_Feedback; trackBy: trackByFunction" cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
                         [ngStyle]="{'background-color': taskAwaitingFeedback.category.category_color }">{{taskAwaitingFeedback.category.title}}</span>
                     <span class="task-title">{{ taskAwaitingFeedback.title }}</span>
                     <span class="task-description">{{ taskAwaitingFeedback.description }}</span>
-                    <div class="task-subtasks">
+                    <div *ngIf="taskAwaitingFeedback.subtasks.length" class="task-subtasks">
                         <mat-progress-bar mode="determinate"
                             [value]="valueCompletedSubtasks(taskAwaitingFeedback.subtasks)"></mat-progress-bar>
                         <span>{{ completedSubtasks(taskAwaitingFeedback.subtasks)}}/{{
@@ -142,13 +142,13 @@
             </div>
             <div class="task-droplist" cdkDropList [cdkDropListData]="Done" (cdkDropListDropped)="drop($event, 'Done')">
                 <div *ngIf="!Done.length" class="task-placeholder-empty">No tasks Done</div>
-                <div class="task-container" *ngFor="let taskDone of Done; trackBy: trackByFunction" cdkDrag>
+                <div (click)="openDetailsTask(taskDone)" class="task-container" *ngFor="let taskDone of Done; trackBy: trackByFunction" cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
                         [ngStyle]="{'background-color': taskDone.category.category_color }">{{taskDone.category.title}}</span>
                     <span class="task-title">{{ taskDone.title }}</span>
                     <span class="task-description">{{ taskDone.description }}</span>
-                    <div class="task-subtasks">
+                    <div *ngIf="taskDone.subtasks.length" class="task-subtasks">
                         <mat-progress-bar mode="determinate"
                             [value]="valueCompletedSubtasks(taskDone.subtasks)"></mat-progress-bar>
                         <span>{{ completedSubtasks(taskDone.subtasks)}}/{{ taskDone.subtasks.length }} Subtasks</span>
