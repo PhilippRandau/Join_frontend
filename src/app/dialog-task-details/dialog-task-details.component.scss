@@ -93,10 +93,24 @@
 .task-edit-delete {
     display: flex;
     justify-content: flex-end;
+    gap: 10px;
 
     button {
         display: flex;
         align-items: center;
         gap: 5px;
+        padding: 5px 10px;
+        font-size: 16px;
+    }
+}
+
+.task-delete {
+    border-color: red;
+    color: red;
+
+    &:hover {
+        background-color: red;
+        color: white;
+        border-color: transparent;
     }
 }
