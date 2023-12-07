@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AddTaskDataService } from '../services/add-task-data.service';
+import { EditAddTaskService } from '../services/edit-add-task.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +16,8 @@ export class NavbarComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    public dataAddTask: AddTaskDataService,) {
+    public addEditTask: EditAddTaskService
+    ) {
     let navPaths = ['summary', 'board', 'add_task', 'contacts']
     navPaths.forEach(navPath => {
       if (activatedRoute.snapshot.url[0].path === navPath) {
@@ -26,6 +27,6 @@ export class NavbarComponent {
   }
 
   setTaskSection() {
-    this.dataAddTask.createTaskInSection = 'To_Do';
+    this.addEditTask.createTaskInSection = 'To_Do';
   }
 }

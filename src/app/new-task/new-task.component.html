@@ -1,5 +1,5 @@
 <app-template></app-template>
-<form class="new-task-form" (ngSubmit)="createTask()" [formGroup]="newTaskForm">
+<form class="task-form" (ngSubmit)="addEditTask.createTask()" [formGroup]="addEditTask.taskForm">
   <div class="header-container">
     <h3>Add Task</h3>
   </div>
@@ -7,14 +7,14 @@
   <div class="input-container">
     <label for="title">Title<span>*</span></label>
     <input id="title" type="text" formControlName="title" required placeholder="Title" name="title">
-    <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger add-task-errors">
-      <div *ngIf="title.errors?.['required']">
+    <div *ngIf="addEditTask.title.invalid && (addEditTask.title.dirty || addEditTask.title.touched)" class="alert alert-danger add-task-errors">
+      <div *ngIf="addEditTask.title.errors?.['required']">
         Title is required.
       </div>
-      <div *ngIf="title.errors?.['minlength']">
+      <div *ngIf="addEditTask.title.errors?.['minlength']">
         The title must be at least 3 characters long.
       </div>
-      <div *ngIf="title.errors?.['maxlength']">
+      <div *ngIf="addEditTask.title.errors?.['maxlength']">
         The title cannot exceed 20 characters.
       </div>
     </div>
@@ -28,7 +28,7 @@
   <div class="input-container">
     <label>Prio</label>
     <div class="toggle-prio">
-      <button type="button" [ngClass]="{'prio-urgent': prio.value === 'Urgent'}" (click)="setPrio('Urgent')">
+      <button type="button" [ngClass]="{'prio-urgent': addEditTask.prio.value === 'Urgent'}" (click)="addEditTask.setPrio('Urgent')">
         Urgent
         <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_102853_2846)">
@@ -41,7 +41,7 @@
           </g>
         </svg>
       </button>
-      <button type="button" [ngClass]="{'prio-medium': prio.value === 'Medium'}" (click)="setPrio('Medium')">
+      <button type="button" [ngClass]="{'prio-medium': addEditTask.prio.value === 'Medium'}" (click)="addEditTask.setPrio('Medium')">
         Medium
         <svg width="18" height="8" viewBox="0 0 18 8" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -53,7 +53,7 @@
         </svg>
 
       </button>
-      <button type="button" [ngClass]="{'prio-low': prio.value === 'Low'}" (click)="setPrio('Low')">
+      <button type="button" [ngClass]="{'prio-low': addEditTask.prio.value === 'Low'}" (click)="addEditTask.setPrio('Low')">
         Low
         <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_102853_3113)">
@@ -77,8 +77,8 @@
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </div>
-    <div *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched)" class="alert alert-danger add-task-errors">
-      <div *ngIf="dueDate.errors?.['required']">
+    <div *ngIf="addEditTask.dueDate.invalid && (addEditTask.dueDate.dirty || addEditTask.dueDate.touched)" class="alert alert-danger add-task-errors">
+      <div *ngIf="addEditTask.dueDate.errors?.['required']">
         Due date is required.
       </div>
     </div>
@@ -87,51 +87,51 @@
   <div class="input-container">
 
     <label>Category<span>*</span></label>
-    <mat-form-field appearance="outline" *ngIf="!newCategoryOpen">
-      <mat-select placeholder="Select task category" formControlName="category" [(value)]="selectedCategory" required>
-        <mat-option (click)="newCategoryOpen = true">Create new category</mat-option>
-        <mat-option *ngFor="let category of categories;" [value]="category">{{category.title}}</mat-option>
+    <mat-form-field appearance="outline" *ngIf="!addEditTask.newCategoryOpen">
+      <mat-select placeholder="Select task category" formControlName="category" [(value)]="addEditTask.selectedCategory" required>
+        <mat-option (click)="addEditTask.newCategoryOpen = true">Create new category</mat-option>
+        <mat-option *ngFor="let category of addEditTask.categories;" [value]="category">{{category.title}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <div *ngIf="!newCategoryOpen && category.invalid && (category.dirty || category.touched)"
+    <div *ngIf="!addEditTask.newCategoryOpen && addEditTask.category.invalid && (addEditTask.category.dirty || addEditTask.category.touched)"
       class="alert alert-danger add-task-errors">
-      <div *ngIf="category.errors?.['required']">
+      <div *ngIf="addEditTask.category.errors?.['required']">
         Category is required.
       </div>
     </div>
     <!-- new Category -->
-    <form (ngSubmit)="addNewCategory()" [formGroup]="newCategoryForm" *ngIf="newCategoryOpen">
+    <form (ngSubmit)="addEditTask.addNewCategory()" [formGroup]="addEditTask.newCategoryForm" *ngIf="addEditTask.newCategoryOpen">
       <div class="relative input-button-icon new-category">
-        <input formControlName="newCategory" required [style.background-color]="newCategoryColor.value"
-          [style.color]="newCategoryTextColor()" placeholder="New category name" type="text">
-        <button [disabled]="!newCategoryForm.valid">
+        <input formControlName="newCategory" required [style.background-color]="addEditTask.newCategoryColor.value"
+          [style.color]="addEditTask.newCategoryTextColor()" placeholder="New category name" type="text">
+        <button [disabled]="!addEditTask.newCategoryForm.valid">
           <mat-icon fontIcon="done"></mat-icon>
         </button>
-        <button type="button" (click)="backToSelectCategory()">
+        <button type="button" (click)="addEditTask.backToSelectCategory()">
           <mat-icon fontIcon="arrow_back"></mat-icon>
         </button>
       </div>
-      <div *ngIf="newCategory.invalid && (newCategory.dirty || newCategory.touched)"
+      <div *ngIf="addEditTask.newCategory.invalid && (addEditTask.newCategory.dirty || addEditTask.newCategory.touched)"
         class="alert alert-danger add-task-errors">
-        <div *ngIf="newCategory.errors?.['required']">
+        <div *ngIf="addEditTask.newCategory.errors?.['required']">
           Category name is required.
         </div>
-        <div *ngIf="newCategory.errors?.['minlength']">
+        <div *ngIf="addEditTask.newCategory.errors?.['minlength']">
           The category name must be at least 3 characters long.
         </div>
-        <div *ngIf="newCategory.errors?.['maxlength']">
+        <div *ngIf="addEditTask.newCategory.errors?.['maxlength']">
           The category name cannot exceed 20 characters.
         </div>
       </div>
       <div class="color-picker">
-        <div class="color-picker-container" *ngFor="let color of newCategoryColors">
-          <div (click)="categoryColorChoosed(color)" [ngStyle]="{'background-color': color}"></div>
+        <div class="color-picker-container" *ngFor="let color of addEditTask.newCategoryColors">
+          <div (click)="addEditTask.categoryColorChoosed(color)" [ngStyle]="{'background-color': color}"></div>
         </div>
         <input type="text" required style="display: none;" formControlName="newCategoryColor">
       </div>
-      <div *ngIf="newCategoryColor.invalid && (newCategory.dirty || newCategory.touched)"
+      <div *ngIf="addEditTask.newCategoryColor.invalid && (addEditTask.newCategory.dirty || addEditTask.newCategory.touched)"
         class="alert alert-danger add-task-errors">
-        <div *ngIf="newCategoryColor.errors?.['required']">
+        <div *ngIf="addEditTask.newCategoryColor.errors?.['required']">
           Choose a background color.
         </div>
       </div>
@@ -143,14 +143,14 @@
     <label>Assigned to</label>
     <mat-form-field appearance="outline">
       <mat-select placeholder="Select contacts to assign" multiple formControlName="assignedTo">
-        <mat-option disabled [value]="creator">(Me) {{creator?.first_name}}
-          {{creator?.last_name}}</mat-option>
-        <mat-option *ngFor="let contact of contacts;" [value]="contact">{{contact.first_name}}
+        <mat-option disabled [value]="addEditTask.creator">(Me) {{addEditTask.creator?.first_name}}
+          {{addEditTask.creator?.last_name}}</mat-option>
+        <mat-option *ngFor="let contact of addEditTask.contacts;" [value]="contact">{{contact.first_name}}
           {{contact.last_name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <div class="new-task-assigned-to-bubbles">
-      <div *ngFor="let assignedTo of assignedTo.value; let i = index">
+      <div *ngFor="let assignedTo of addEditTask.assignedTo.value; let i = index">
         <span class="new-task-assigned-to-bubble" [ngStyle]="{'background-color': assignedTo.userdetail.bubble_color }">
           {{ assignedTo.first_name[0] + assignedTo.last_name[0] }}
         </span>
@@ -160,24 +160,24 @@
 
 
   <!-- Subtask -->
-  <form [formGroup]="addSubtasksForm" (submit)="addNewSubtask()" class="input-container">
+  <form [formGroup]="addEditTask.addSubtasksForm" (submit)="addEditTask.addNewSubtask()" class="input-container">
     <label>Subtasks</label>
     <div class="relative input-button-icon add-subtask">
       <input formControlName="addSubtask" required placeholder="Add new subtask">
-      <button [disabled]="!addSubtasksForm.valid">
+      <button [disabled]="!addEditTask.addSubtasksForm.valid">
         <mat-icon fontIcon="add"></mat-icon>
       </button>
     </div>
-    <div *ngIf="addSubtask.invalid && (addSubtask.dirty || addSubtask.touched)"
+    <div *ngIf="addEditTask.addSubtask.invalid && (addEditTask.addSubtask.dirty || addEditTask.addSubtask.touched)"
       class="alert alert-danger add-task-errors">
-      <div *ngIf="addSubtask.errors?.['minlength']">
+      <div *ngIf="addEditTask.addSubtask.errors?.['minlength']">
         The subtask name must be at least 3 characters long.
       </div>
-      <div *ngIf="addSubtask.errors?.['maxlength']">
+      <div *ngIf="addEditTask.addSubtask.errors?.['maxlength']">
         The subtask name cannot exceed 20 characters.
       </div>
     </div>
-    <div *ngFor="let newSubtask of newSubtasks">
+    <div *ngFor="let newSubtask of addEditTask.newSubtasks">
       <input name="completed" type="checkbox" [(ngModel)]="newSubtask.completed" [ngModelOptions]="{standalone: true}">
       {{ newSubtask.title }}
     </div>
@@ -185,7 +185,7 @@
 
   <div class="login-btn-container">
     <label><span>*</span>This field is required</label>
-    <button class="btn-primary" [disabled]="!newTaskForm.valid">
+    <button class="btn-primary" [disabled]="!addEditTask.taskForm.valid">
       Create Task
       <mat-icon fontIcon="done"></mat-icon>
     </button>

@@ -10,12 +10,10 @@ import { TasksDetailsService } from '../services/tasks-details.service';
   styleUrls: ['./dialog-task-details.component.scss']
 })
 export class DialogTaskDetailsComponent {
-  constructor(@Inject(
-    MAT_DIALOG_DATA) public data: any,
+  constructor(    
     public dialogRef: DialogRef,
     private handleData: HandleDataService,
     public tasksDetails: TasksDetailsService
-
   ) {
     console.log('Task detail data: ', tasksDetails.currentTaskData);
   }
@@ -27,7 +25,7 @@ export class DialogTaskDetailsComponent {
 
   async deleteTask() {
     this.dialogRef.close();
-    this.deleteTaskLocal()
+    this.deleteTaskLocal();
 
     await this.handleData.deleteData(`/tasks/${this.tasksDetails.currentTaskData.id}/`);
   }

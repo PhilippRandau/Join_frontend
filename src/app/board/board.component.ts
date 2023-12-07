@@ -12,12 +12,12 @@ import {
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogAddTaskComponent } from '../dialog-add-task/dialog-add-task.component';
-import { AddTaskDataService } from '../services/add-task-data.service';
 import { Router } from '@angular/router';
 import { HandleDataService } from '../services/handle-data.service';
 
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { TasksDetailsService } from '../services/tasks-details.service';
+import { EditAddTaskService } from '../services/edit-add-task.service';
 
 export const slideInAnimation = trigger('slideInAnimation', [
   state('void', style({ transform: 'translateX(100%)' })),
@@ -34,7 +34,7 @@ export class BoardComponent implements OnInit {
   constructor(
     private http: HttpClient,
     public dialog: MatDialog,
-    public dataAddTask: AddTaskDataService,
+    public addEditTask: EditAddTaskService,
     private router: Router,
     private handleData: HandleDataService,
     public tasksDetails: TasksDetailsService
@@ -105,7 +105,7 @@ export class BoardComponent implements OnInit {
 
   openAddTask(section) {
 
-    this.dataAddTask.createTaskInSection = section;
+    this.addEditTask.createTaskInSection = section;
     this.router.navigateByUrl('/add_task');
 
 

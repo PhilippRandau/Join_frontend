@@ -34,6 +34,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxAnimatedCounterModule } from '@bugsplat/ngx-animated-counter';
 import { ContactAddComponent } from './contact-add/contact-add.component';
 import { DialogTaskDetailsComponent } from './dialog-task-details/dialog-task-details.component';
+import { DialogTaskDetailsEditComponent } from './dialog-task-details-edit/dialog-task-details-edit.component';
 
 
 
@@ -55,6 +56,7 @@ import { DialogTaskDetailsComponent } from './dialog-task-details/dialog-task-de
     DialogAddTaskComponent,
     ContactAddComponent,
     DialogTaskDetailsComponent,
+    DialogTaskDetailsEditComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogTaskDetailsComponent } from '../dialog-task-details/dialog-task-details.component';
 import { Observable } from 'rxjs';
+import { DialogTaskDetailsEditComponent } from '../dialog-task-details-edit/dialog-task-details-edit.component';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,16 @@ export class TasksDetailsService {
 
     this.dialog.open(DialogTaskDetailsComponent, {
       exitAnimationDuration,
-      // data: { task: this.currentTaskData, },
       panelClass: 'task-details-dialog',
     });
+  }
 
+  openEditDetailsTask() {
+    let exitAnimationDuration = '250ms';
+
+    this.dialog.open(DialogTaskDetailsEditComponent, {
+      exitAnimationDuration,
+      panelClass: 'task-details-dialog',
+    });
   }
 }

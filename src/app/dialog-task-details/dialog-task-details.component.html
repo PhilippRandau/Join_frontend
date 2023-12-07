@@ -24,7 +24,7 @@
         <div class="task-assigned-to">
             <div *ngFor="let assignedUser of tasksDetails.currentTaskData.assigned_to; let i = index">
                 <span [ngStyle]="{'background-color': assignedUser.userdetail.bubble_color }"
-                    class="task-assigned-to-bubble" *ngIf="i < 3">
+                    class="task-assigned-to-bubble">
                     {{ assignedUser.first_name[0] + assignedUser.last_name[0] }}
                 </span>
                 <span>{{ assignedUser.first_name }} {{ assignedUser.last_name }}</span>
@@ -44,6 +44,6 @@
     <div class="task-edit-delete">
         <button class="task-delete btn-secondary" (click)="deleteTask()"> <mat-icon class="material-icons-outlined"
                 fontIcon="delete_outline"></mat-icon>Delete</button>
-        <button class="task-edit btn-primary"> <mat-icon class="material-icons-outlined" fontIcon="edit"></mat-icon>Edit</button>
+        <button class="task-edit btn-primary" (click)="tasksDetails.openEditDetailsTask()"> <mat-icon class="material-icons-outlined" fontIcon="edit"></mat-icon>Edit</button>
     </div>
 </div>
