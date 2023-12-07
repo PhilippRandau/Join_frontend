@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
-import { environment } from '../environments/environment.prod';
 import {
   CdkDragDrop,
   CdkDrag,
@@ -17,9 +15,9 @@ import { DialogAddTaskComponent } from '../dialog-add-task/dialog-add-task.compo
 import { AddTaskDataService } from '../services/add-task-data.service';
 import { Router } from '@angular/router';
 import { HandleDataService } from '../services/handle-data.service';
-import { DialogTaskDetailsComponent } from '../dialog-task-details/dialog-task-details.component';
 
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { TasksDetailsService } from '../services/tasks-details.service';
 
 export const slideInAnimation = trigger('slideInAnimation', [
   state('void', style({ transform: 'translateX(100%)' })),
@@ -32,12 +30,6 @@ export const slideInAnimation = trigger('slideInAnimation', [
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  tasks: Array<any> = [];
-  To_Do: Array<any> = [];
-  In_Progress: Array<any> = [];
-  Awaiting_Feedback: Array<any> = [];
-  Done: Array<any> = [];
-  
 
   constructor(
     private http: HttpClient,
@@ -45,7 +37,8 @@ export class BoardComponent implements OnInit {
     public dataAddTask: AddTaskDataService,
     private router: Router,
     private handleData: HandleDataService,
-  ) {}
+    public tasksDetails: TasksDetailsService
+  ) { }
 
 
   ngOnInit(): void {
@@ -56,7 +49,7 @@ export class BoardComponent implements OnInit {
   async loadBoard() {
     try {
       let response: any = await this.handleData.getData('/tasks/');
-      this.tasks = await this.replaceNestedIdsWithData(response);
+      this.tasksDetails.tasks = await this.replaceNestedIdsWithData(response);
       this.sortTasksInSections();
     } catch (e) {
       console.log(e);
@@ -86,8 +79,8 @@ export class BoardComponent implements OnInit {
 
 
   sortTasksInSections() {
-    this.tasks.forEach(task => {
-      this[task.section].push(task);
+    this.tasksDetails.tasks.forEach(task => {
+      this.tasksDetails[task.section].push(task);
     });
   }
 
@@ -154,14 +147,4 @@ export class BoardComponent implements OnInit {
     return item.name;
   }
 
-
-  openDetailsTask(taskData) {
-    let exitAnimationDuration = '250ms';
-
-    this.dialog.open(DialogTaskDetailsComponent, {
-      exitAnimationDuration,
-      data: { task: taskData, },
-      panelClass: 'task-details-dialog',
-    });
-  }
 }

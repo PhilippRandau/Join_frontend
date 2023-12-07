@@ -1,27 +1,28 @@
 <div class="task-container">
     <div class="task-headline">
         <span class="task-category"
-            [ngStyle]="{'background-color': data.task.category.category_color }">{{data.task.category.title}}</span>
-        <button (click)="dialogRef.close()"><mat-icon class="material-icons-outlined" fontIcon="close"></mat-icon></button>
+            [ngStyle]="{'background-color': tasksDetails.currentTaskData.category.category_color }">{{tasksDetails.currentTaskData.category.title}}</span>
+        <button (click)="dialogRef.close()"><mat-icon class="material-icons-outlined"
+                fontIcon="close"></mat-icon></button>
     </div>
 
-    <span class="task-title">{{ data.task.title }}</span>
-    <span>{{ data.task.description }}</span>
+    <span class="task-title">{{ tasksDetails.currentTaskData.title }}</span>
+    <span>{{ tasksDetails.currentTaskData.description }}</span>
     <div>
         <span class="text-title">Due date: </span>
-        <span> {{ data.task.due_date }}</span>
+        <span> {{ tasksDetails.currentTaskData.due_date }}</span>
     </div>
     <div class="task-prio-container">
         <span class="text-title">Priority: </span>
         <div class="task-prio">
-            <span>{{ data.task.prio }}</span>
-            <img [src]='"./../../assets/img/icons/" + data.task.prio + ".svg"' [alt]="data.task.prio">
+            <span>{{ tasksDetails.currentTaskData.prio }}</span>
+            <img [src]='"./../../assets/img/icons/" + tasksDetails.currentTaskData.prio + ".svg"' [alt]="tasksDetails.currentTaskData.prio">
         </div>
     </div>
     <div class="task-assigned-to-container">
         <span class="text-title">Assigned To: </span>
         <div class="task-assigned-to">
-            <div *ngFor="let assignedUser of data.task.assigned_to; let i = index">
+            <div *ngFor="let assignedUser of tasksDetails.currentTaskData.assigned_to; let i = index">
                 <span [ngStyle]="{'background-color': assignedUser.userdetail.bubble_color }"
                     class="task-assigned-to-bubble" *ngIf="i < 3">
                     {{ assignedUser.first_name[0] + assignedUser.last_name[0] }}
@@ -32,13 +33,17 @@
     </div>
     <div class="subtasks-container">
         <span class="text-title">Subtasks: </span>
-        <div *ngFor="let subtask of  data.task.subtasks">
-            <input name="completed" type="checkbox" (change)="subtaskChangedCheckbox(subtask)" [(ngModel)]="subtask.completed">
-            {{ subtask.title }}
+        <div class="subtasks">
+            <div *ngFor="let subtask of  tasksDetails.currentTaskData.subtasks">
+                <input name="completed" type="checkbox" (change)="subtaskChangedCheckbox(subtask)"
+                    [(ngModel)]="subtask.completed">
+                {{ subtask.title }}
+            </div>
         </div>
     </div>
     <div class="task-edit-delete">
-        <button> <mat-icon class="material-icons-outlined" fontIcon="delete_outline"></mat-icon>Delete</button>
+        <button (click)="deleteTask()"> <mat-icon class="material-icons-outlined"
+                fontIcon="delete_outline"></mat-icon>Delete</button>
         <button> <mat-icon class="material-icons-outlined" fontIcon="edit"></mat-icon>Edit</button>
     </div>
 </div>

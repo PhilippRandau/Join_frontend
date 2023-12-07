@@ -38,9 +38,10 @@
     font-size: 32px;
 }
 
-.subtasks-container {
-    height: 40px;
-    max-height: 140px;
+.subtasks {
+    height: 80px;
+    max-height: 210px;
+    overflow-y: auto;
 }
 
 .task-prio-container {
