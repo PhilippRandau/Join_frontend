@@ -9,7 +9,7 @@ import { DialogTaskDetailsEditComponent } from '../dialog-task-details-edit/dial
 })
 export class TasksDetailsService {
 
-  constructor(public dialog: MatDialog,) { }
+  constructor(public dialog: MatDialog) { }
 
   tasks: Array<any> = [];
   To_Do: Array<any> = [];

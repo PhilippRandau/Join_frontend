@@ -38,7 +38,14 @@ export class BoardComponent implements OnInit {
     private router: Router,
     private handleData: HandleDataService,
     public tasksDetails: TasksDetailsService
-  ) { }
+  ) {
+    this.tasksDetails.tasks = [];
+    this.tasksDetails.To_Do = [];
+    this.tasksDetails.In_Progress = [];
+    this.tasksDetails.Awaiting_Feedback = [];
+    this.tasksDetails.Done = [];
+    this.tasksDetails.currentTaskData = [];
+  }
 
 
   ngOnInit(): void {
