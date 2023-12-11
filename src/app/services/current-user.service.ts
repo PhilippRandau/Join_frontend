@@ -15,5 +15,7 @@ export class CurrentUserService {
   async loadCurrentUser() {
     this.currentUser = await this.handleData.getData('/user/');
     console.log('Current User logged in: ', this.currentUser);
+    return this.currentUser;
+
   }
 }

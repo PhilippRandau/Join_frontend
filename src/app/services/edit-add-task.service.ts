@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { HandleDataService } from './handle-data.service';
 import { Router } from '@angular/router';
 import { TasksDetailsService } from './tasks-details.service';
+import { CurrentUserService } from './current-user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class EditAddTaskService {
     private handleData: HandleDataService,
     private router: Router,
     public tasksDetails: TasksDetailsService,
+    public currentUserData: CurrentUserService
   ) { }
 
   taskForm = this.fb.group({
@@ -57,15 +59,17 @@ export class EditAddTaskService {
   get addSubtask() { return this.addSubtasksForm.get('addSubtask'); }
 
   async loadDataContacts() {
-    this.creator = await this.handleData.getData('/user/');
+    this.creator = await this.currentUserData.loadCurrentUser();
     this.assignedTo.setValue([this.creator]);
     this.categories = await this.handleData.getData('/categories/');
     this.contacts = await this.handleData.getData('/contacts/');
   }
 
+
   compareContactObjects(object1: any, object2: any) {
     return object1 && object2 && object1.id == object2.id;
   }
+
 
   async createTask() {
     const newTask = {
@@ -84,9 +88,11 @@ export class EditAddTaskService {
     this.router.navigateByUrl('/board');
   }
 
+
   setPrio(prioValue) {
     this.prio.setValue(prioValue);
   }
+
 
   idsOf(objects) {
     let objectsToIDs = [];
@@ -96,8 +102,14 @@ export class EditAddTaskService {
     return objectsToIDs;
   }
 
+
   convertDateToISO(date) {
-    return date.toISOString().substring(0, 10);
+    if (Object.prototype.toString.call(date) === '[object Date]') {
+      return date.toISOString().substring(0, 10);
+    }
+    else {
+      return date;
+    }
   }
 
 
@@ -105,9 +117,11 @@ export class EditAddTaskService {
     this.newCategoryColor.setValue(color);
   }
 
+
   newCategoryTextColor() {
     return this.newCategoryColor.value === '' ? 'black' : 'white';
   }
+
 
   async addNewCategory() {
     const newCategoryData = {
@@ -122,10 +136,12 @@ export class EditAddTaskService {
     this.backToSelectCategory();
   }
 
+
   backToSelectCategory() {
     this.newCategoryOpen = false;
     this.clearCategoryInputs();
   }
+
 
   clearCategoryInputs() {
     this.newCategoryForm.setValue({
@@ -133,6 +149,7 @@ export class EditAddTaskService {
       newCategoryColor: ''
     });
   }
+
 
   async addNewSubtask() {
     const newSubtaskData = {
@@ -143,6 +160,7 @@ export class EditAddTaskService {
     this.newSubtasks.push(response);
     this.clearSubtaskInput();
   }
+
 
   clearSubtaskInput() {
     this.addSubtasksForm.setValue({

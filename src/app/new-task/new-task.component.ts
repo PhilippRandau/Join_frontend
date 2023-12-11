@@ -16,11 +16,15 @@ import { EditAddTaskService } from '../services/edit-add-task.service';
   styleUrls: ['./new-task.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class NewTaskComponent {
+export class NewTaskComponent implements OnInit {
 
   constructor(
     public addEditTask: EditAddTaskService
   ) {
+
+  }
+
+  ngOnInit() {
     this.addEditTask.loadDataContacts();
   }
 }

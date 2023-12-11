@@ -1,17 +1,29 @@
 $transition: 150ms ease-in-out;
 
 .task-form {
-    // position: absolute;
-    // top: 80px;
-    // bottom: 70px;
-    // left: 0px;
-    // right: 0px;
-    //     overflow: auto;
-    padding: 30px 25px;
+    padding: 30px 20px;
+    padding-right: 5px;
+}
+
+.edit-task-container {
+    overflow-y: auto;
+    max-height: calc(100vh - 240px);
+    padding-right: 20px;
+    padding-left: 5px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        background-color: white;
+        border: none;
+        cursor: pointer;
+    }
 }
 
 label {
-
     span {
         color: red;
     }
@@ -24,7 +36,8 @@ label {
     margin-top: 20px;
     width: 100%;
 
-    input {
+    input,
+    textarea {
         border-radius: 10px;
         border: 1px solid #D1D1D1;
         background-color: white;
@@ -36,8 +49,14 @@ label {
         }
     }
 
-    mat-form-field {
+    textarea {
+        resize: vertical;
+        max-height: 150px;
+        min-height: 50px;
+        font-family: 'inter', 'arial', sans-serif !important;
+    }
 
+    mat-form-field {
         .mat-mdc-form-field-subscript-wrapper {
             display: none;
         }
@@ -65,6 +84,8 @@ label {
     display: flex;
     justify-content: space-between;
     border: none;
+    flex-direction: column;
+    gap: 10px;
 
     button {
         font-family: "inter", "arial", sans-serif;
@@ -265,6 +286,31 @@ label {
     border: 1px solid #FFFFFF;
     min-height: 38px;
 
+}
+
+.list-subtasks-container {
+    overflow-y: auto;
+    height: 120px;
+    margin-top: 20px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-subtasks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+        background-color: white;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+.delete-subtask {
+    border-left: 1px solid grey !important;
 }
 
 .add-subtask {

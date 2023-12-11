@@ -24,7 +24,7 @@ label {
     margin-top: 20px;
     width: 100%;
 
-    input {
+    input, textarea {
         border-radius: 10px;
         border: 1px solid #D1D1D1;
         background-color: white;
@@ -34,6 +34,13 @@ label {
         &:focus {
             outline: 1px solid #29ABE2;
         }
+    }
+
+    textarea {
+        resize: vertical;
+        max-height: 150px;
+        min-height: 50px;
+        font-family: 'inter', 'arial', sans-serif !important;
     }
 
     mat-form-field {
