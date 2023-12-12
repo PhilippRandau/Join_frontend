@@ -17,7 +17,6 @@ export class TasksDetailsService {
   Awaiting_Feedback: Array<any> = [];
   Done: Array<any> = [];
   tasksFilter: string = '';
-  // sectionsFiltered: Array<string> = ['To_DoFiltered', 'In_ProgressFiltered', 'Awaiting_FeedbackFiltered', 'DoneFiltered'];
   To_DoFiltered: Array<any> = [];
   In_ProgressFiltered: Array<any> = [];
   Awaiting_FeedbackFiltered: Array<any> = [];
@@ -45,11 +44,9 @@ export class TasksDetailsService {
   }
 
   filterTaskSections() {
+    const tasksFilter = this.tasksFilter.toLowerCase();
     this.tasks.forEach(task => {
-      this[task.section + 'Filtered'] = [];
-    });
-    this.tasks.forEach(task => {
-      this[task.section + 'Filtered'] = this[task.section].filter((task) => (task.title.includes(this.tasksFilter) || task.description.includes(this.tasksFilter)) || task.category.title.includes(this.tasksFilter));
+      this[task.section + 'Filtered'] = this[task.section].filter((task) => (task.title.toLowerCase().includes(tasksFilter) || task.description.toLowerCase().includes(tasksFilter)) || task.category.title.toLowerCase().includes(tasksFilter));
       console.log(this[task.section].section, this[task.section + 'Filtered']);
     });
   }
