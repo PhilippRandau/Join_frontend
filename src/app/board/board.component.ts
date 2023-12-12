@@ -57,7 +57,8 @@ export class BoardComponent implements OnInit {
     try {
       let response: any = await this.handleData.getData('/tasks/');
       this.tasksDetails.tasks = await this.replaceNestedIdsWithData(response);
-      this.sortTasksInSections();
+      await this.sortTasksInSections();
+      this.tasksDetails.filterTaskSections();
     } catch (e) {
       console.log(e);
     }
@@ -80,12 +81,11 @@ export class BoardComponent implements OnInit {
       rawTasks[i].category = category;
       rawTasks[i].subtasks = subtasks;
     }));
-
     return rawTasks;
   }
 
 
-  sortTasksInSections() {
+  async sortTasksInSections() {
     this.tasksDetails.tasks.forEach(task => {
       this.tasksDetails[task.section].push(task);
     });
@@ -111,21 +111,8 @@ export class BoardComponent implements OnInit {
 
 
   openAddTask(section) {
-
     this.addEditTask.createTaskInSection = section;
     this.router.navigateByUrl('/add_task');
-
-
-    // const pathThroughData = {
-    //   'createInSection': section
-    // }
-    // const dialogRef = this.dialog.open(DialogAddTaskComponent, {
-    //   data: pathThroughData
-    // });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(`Dialog result: ${result}`);
-    // });
   }
 
 

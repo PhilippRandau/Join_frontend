@@ -16,6 +16,12 @@ export class TasksDetailsService {
   In_Progress: Array<any> = [];
   Awaiting_Feedback: Array<any> = [];
   Done: Array<any> = [];
+  tasksFilter: string = '';
+  // sectionsFiltered: Array<string> = ['To_DoFiltered', 'In_ProgressFiltered', 'Awaiting_FeedbackFiltered', 'DoneFiltered'];
+  To_DoFiltered: Array<any> = [];
+  In_ProgressFiltered: Array<any> = [];
+  Awaiting_FeedbackFiltered: Array<any> = [];
+  DoneFiltered: Array<any> = [];
 
   currentTaskData: any;
 
@@ -35,6 +41,16 @@ export class TasksDetailsService {
     this.dialog.open(DialogTaskDetailsEditComponent, {
       exitAnimationDuration,
       panelClass: 'task-details-dialog',
+    });
+  }
+
+  filterTaskSections() {
+    this.tasks.forEach(task => {
+      this[task.section + 'Filtered'] = [];
+    });
+    this.tasks.forEach(task => {
+      this[task.section + 'Filtered'] = this[task.section].filter((task) => (task.title.includes(this.tasksFilter) || task.description.includes(this.tasksFilter)) || task.category.title.includes(this.tasksFilter));
+      console.log(this[task.section].section, this[task.section + 'Filtered']);
     });
   }
 }

@@ -8,7 +8,7 @@
                     class="material-icons-outlined" fontIcon="add"></mat-icon></button>
         </div>
         <div class="relative search-task">
-            <input placeholder="Find Task" type="search">
+            <input [(ngModel)]="tasksDetails.tasksFilter" (keyup)="tasksDetails.filterTaskSections()" (keydown)="tasksDetails.filterTaskSections()" placeholder="Find Task" type="search">
             <div class="parting-line"></div>
             <mat-icon class="material-icons-outlined" fontIcon="search"></mat-icon>
         </div>
@@ -23,10 +23,10 @@
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div class="task-droplist" cdkDropList [cdkDropListData]="tasksDetails.To_Do"
+            <div class="task-droplist" cdkDropList [cdkDropListData]="tasksDetails.To_DoFiltered"
                 (cdkDropListDropped)="drop($event, 'To_Do')">
-                <div *ngIf="!tasksDetails.To_Do.length" class="task-placeholder-empty">No tasks To Do</div>
-                <div (click)="tasksDetails.openDetailsTask(taskToDo)" class="task-container" *ngFor="let taskToDo of tasksDetails.To_Do; trackBy: trackByFunction" cdkDrag>
+                <div *ngIf="!tasksDetails.To_DoFiltered.length" class="task-placeholder-empty">No tasks To Do</div>
+                <div (click)="tasksDetails.openDetailsTask(taskToDo)" class="task-container" *ngFor="let taskToDo of tasksDetails.To_DoFiltered; trackBy: trackByFunction" cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
                         [ngStyle]="{'background-color': taskToDo.category.category_color }">{{taskToDo.category.title}}</span>
@@ -61,10 +61,10 @@
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div class="task-droplist" cdkDropList [cdkDropListData]="tasksDetails.In_Progress"
+            <div class="task-droplist" cdkDropList [cdkDropListData]="tasksDetails.In_ProgressFiltered"
                 (cdkDropListDropped)="drop($event, 'In_Progress')">
-                <div *ngIf="!tasksDetails.In_Progress.length" class="task-placeholder-empty">No tasks In Progress</div>
-                <div (click)="tasksDetails.openDetailsTask(taskInProgress)" class="task-container" *ngFor="let taskInProgress of tasksDetails.In_Progress; trackBy: trackByFunction"
+                <div *ngIf="!tasksDetails.In_ProgressFiltered.length" class="task-placeholder-empty">No tasks In Progress</div>
+                <div (click)="tasksDetails.openDetailsTask(taskInProgress)" class="task-container" *ngFor="let taskInProgress of tasksDetails.In_ProgressFiltered; trackBy: trackByFunction"
                     cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
@@ -101,11 +101,11 @@
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div class="task-droplist" cdkDropList [cdkDropListData]="tasksDetails.Awaiting_Feedback"
+            <div class="task-droplist" cdkDropList [cdkDropListData]="tasksDetails.Awaiting_FeedbackFiltered"
                 (cdkDropListDropped)="drop($event, 'Awaiting_Feedback')">
-                <div *ngIf="!tasksDetails.Awaiting_Feedback.length" class="task-placeholder-empty">No tasks Awaiting Feedback</div>
+                <div *ngIf="!tasksDetails.Awaiting_FeedbackFiltered.length" class="task-placeholder-empty">No tasks Awaiting Feedback</div>
                 <div (click)="tasksDetails.openDetailsTask(taskAwaitingFeedback)"  class="task-container"
-                    *ngFor="let taskAwaitingFeedback of tasksDetails.Awaiting_Feedback; trackBy: trackByFunction" cdkDrag>
+                    *ngFor="let taskAwaitingFeedback of tasksDetails.Awaiting_FeedbackFiltered; trackBy: trackByFunction" cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
                         [ngStyle]="{'background-color': taskAwaitingFeedback.category.category_color }">{{taskAwaitingFeedback.category.title}}</span>
@@ -140,9 +140,9 @@
                     <mat-icon class="material-icons-outlined" fontIcon="add"></mat-icon>
                 </button>
             </div>
-            <div class="task-droplist" cdkDropList [cdkDropListData]="tasksDetails.Done" (cdkDropListDropped)="drop($event, 'Done')">
-                <div *ngIf="!tasksDetails.Done.length" class="task-placeholder-empty">No tasks Done</div>
-                <div (click)="tasksDetails.openDetailsTask(taskDone)" class="task-container" *ngFor="let taskDone of tasksDetails.Done; trackBy: trackByFunction" cdkDrag>
+            <div class="task-droplist" cdkDropList [cdkDropListData]="tasksDetails.DoneFiltered" (cdkDropListDropped)="drop($event, 'Done')">
+                <div *ngIf="!tasksDetails.DoneFiltered.length" class="task-placeholder-empty">No tasks Done</div>
+                <div (click)="tasksDetails.openDetailsTask(taskDone)" class="task-container" *ngFor="let taskDone of tasksDetails.DoneFiltered; trackBy: trackByFunction" cdkDrag>
                     <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
                     <span class="task-category"
                         [ngStyle]="{'background-color': taskDone.category.category_color }">{{taskDone.category.title}}</span>
